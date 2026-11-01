@@ -21,321 +21,389 @@
 <!-- SheetJS for parsing Excel documents (.xlsx, .xls, .csv) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
-    <style>
-        * { box-sizing: border-box; }
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0f172a;
-            color: #f8fafc;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100dvh;
-            margin: 0;
-            padding: 10px;
-        }
-          
-#saveFileBtn, .link {
-  background: rgba(51, 65, 85, 0.5);
-  color: #94a3b8;
-  font-size: 0.75rem;
-  font-weight: 500;
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  <style>
+  /* 1. Theme Variables Configuration */
+:root {
+  --bg-main: #0f172a;
+  --bg-surface: #1e293b;
+  --bg-inner: #0f172a;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --input-bg: #334155;
+  --input-border: #475569;
+}
+
+[data-theme="light"] {
+  --bg-main: #f1f5f9;
+  --bg-surface: #ffffff;
+  --bg-inner: #f8fafc;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #cbd5e1;
+  --input-bg: #f1f5f9;
+  --input-border: #94a3b8;
+}
+
+/* 2. Global & Structure Styles */
+* { 
+  box-sizing: border-box; 
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-main); 
+  color: var(--text-main); 
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers direct children horizontally */
+}
+
+
+/* 3. Theme Toggle Button Placement */
+#themeToggleBtn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1001;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
   cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
 }
 
-#saveFileBtn:hover, .link:hover {
-  background: rgba(71, 85, 105, 0.8);
-  color: #f8fafc;
-  border-color: rgba(255, 255, 255, 0.15);
+#themeToggleBtn:hover {
+  transform: scale(1.05);
 }
 
-        #chat-container {
-            width: 100%;
-            max-width: 650px;
-            background: #1e293b;
-            border-radius: 16px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            height: 85vh;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid #334155;
-        }
-        h2 { margin-top: 0; margin-bottom: 16px; font-weight: 700; font-size: 1.5rem; letter-spacing: -0.025em; }
-        #messages {
-            flex: 1;
-            overflow-y: auto;
-            margin-bottom: 16px;
-            padding: 16px;
-            background: #0f172a;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            border: 1px solid #1e293b;
-        }
-          .footer-btn-container {
+/* 4. Chat Layout UI */
+#chat-container {
+  width: 90%;
+  max-width: 650px;
+  margin: 0 auto;
+  background: var(--bg-surface);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  max-height: 720px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  border: 1px solid var(--border-color);
+}
+
+h2 { 
+  margin-top: 0; 
+  margin-bottom: 16px; 
+  font-weight: 700; 
+  font-size: 1.5rem; 
+  letter-spacing: -0.025em; 
+}
+
+#messages { 
+  flex: 1; 
+  overflow-y: auto; 
+  margin-bottom: 16px; 
+  padding: 16px; 
+  background: var(--bg-inner); 
+  border-radius: 12px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 16px; 
+  border: 1px solid var(--border-color); 
+}
+
+.footer-btn-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 90%;
   max-width: 650px;
-  margin-top: 8px;
+  margin: 8px auto 0 auto; /* auto left/right centers it */
   flex-wrap: wrap;
   gap: 8px;
 }
-        .input-group {
-              gap: 6px;
-              height: 44px;
-              padding: 10px 12px;
-              font-size: 0.9rem;
-    flex-shrink: 0; /* CRITICAL: Stops the Send button from squeezing */
-    display: flex;
-    gap: 8px; /* Slightly tighter gap for mobile room */
-    align-items: center;
-    width: 100%;}
-        input {
-              padding: 12px 14px;
-            flex: 1;
-    min-width: 0; /* CRITICAL: Prevents input box from breaking flex limits */
-    padding: 14px 18px;
-    border-radius: 10px;
-    border: 1px solid #475569;
-    background: #334155;
-    color: white;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s;
-        }
-          
-#upload-btn {
-    background: #64748b;
-    width: 38px;
-    min-width: 38px;
-    height: 38px;
-    padding: 0;
-    font-size: 1.1rem;
-    flex-shrink: 0; /* CRITICAL: Stops the clip button from squeezing */
-    display: inline-flex; /* Centers emoji perfectly */
-    align-items: center;
-    justify-content: center;
-}
-        input:focus { border-color: #3b82f6; }
-        .input-group button { height: 44px; }
-        button {
-            padding: 0 10px;
-            border-radius: 10px;
-            border: none;
-            background: #3b82f6;
-            color: white;
-            font-weight: bold;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: background 0.2s, opacity 0.2s;
-        }
-        button:hover { background: #2563eb; }
-        button:disabled { background: #475569; cursor: not-allowed; opacity: 0.6; }
-        #mic-btn {
-    background: #10b981;
-    width: 38px;
-    min-width: 38px;
-    height: 38px;
-    padding: 0;
-    font-size: 1.1rem;
-    flex-shrink: 0; /* CRITICAL: Stops the mic button from squeezing */
-    display: inline-flex; /* Centers emoji perfectly */
-    align-items: center;
-    justify-content: center;
-}
-        #mic-btn:hover { background: #059669; }
-        #mic-btn.listening { background: #ef4444; animation: pulse 1.5s infinite; }
-        .msg-wrapper { display: flex; flex-direction: column; max-width: 85%; position: relative; }
-        .msg-wrapper.user { align-self: flex-end; align-items: flex-end; }
-        .msg-wrapper.ai { align-self: flex-start; align-items: flex-start; }
-        .msg { padding: 12px 16px; border-radius: 12px; line-height: 1.5; word-wrap: break-word; font-size: 0.95rem; width: 100%; }
-        .user .msg { background: #3b82f6; color: white; border-bottom-right-radius: 2px; }
-        .ai .msg { background: #334155; color: #f1f5f9; border-bottom-left-radius: 2px; }
-        
-        .action-buttons { display: flex; gap: 6px; margin-top: 4px; align-self: flex-start; }
-        .speak-msg-btn, .copy-btn {
-            background: #334155;
-            color: #94a3b8;
-            font-size: 0.75rem;
-            font-weight: normal;
-            padding: 4px 8px;
-            border-radius: 6px;
-            border: 1px solid #475569;
-            height: auto;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
 
-
-
-
-
-
-
-
-
-          /* ADD THIS INSIDE YOUR <style> TAG */
-.left-footer-btns {
-    display: flex;
-    gap: 8px;
-}
-#toggleSidebarBtn {
-    background: rgba(51, 65, 85, 0.5);
-    color: #94a3b8;
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 6px 12px;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-#toggleSidebarBtn:hover {
-    background: rgba(71, 85, 105, 0.8);
-    color: #f8fafc;
-}
-#sidebar {
-    position: fixed;
-    top: 0;
-    right: -300px;
-    width: 300px;
-    height: 100vh;
-    background: #1e293b;
-    border-left: 1px solid #334155;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-    z-index: 1000;
-    transition: right 0.3s ease;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
-#sidebar.open {
-    right: 0;
-}
-#sidebarOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0,0,0,0.5);
-    z-index: 999;
-    display: none;
-}
-#sidebarOverlay.open {
-    display: block;
-}
-.sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-    border-bottom: 1px solid #334155;
-    padding-bottom: 10px;
-}
-.sidebar-header h3 {
-    margin: 0;
-    font-size: 1.1rem;
-    color: #f8fafc;
-}
-#newChatBtn {
-    background: #3b82f6;
-    width: 100%;
-    margin-bottom: 16px;
-    padding: 10px;
-}
-#newChatBtn:hover {
-    background: #2563eb;
-}
-#sessionList {
-    flex: 1;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-.session-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #0f172a;
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-.session-item:hover {
-    border-color: #475569;
-    background: #131f37;
-}
-.session-item.active {
-    border-color: #3b82f6;
-    background: rgba(59, 130, 246, 0.1);
-}
-.session-title {
-    font-size: 0.85rem;
-    color: #e2e8f0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    flex: 1;
-    margin-right: 8px;
-}
-.session-delete-btn {
-    background: transparent;
-    color: #94a3b8;
-    border: none;
-    padding: 4px 8px;
-    font-size: 0.8rem;
-    border-radius: 4px;
-}
-.session-delete-btn:hover {
-    background: rgba(239, 68, 68, 0.2);
-    color: #f87171;
+#saveFileBtn, .link { 
+  background: rgba(51, 65, 85, 0.2); 
+  color: var(--text-muted); 
+  font-size: 0.75rem; 
+  font-weight: 500; 
+  padding: 6px 12px; 
+  border-radius: 8px; 
+  border: 1px solid var(--border-color); 
+  cursor: pointer; 
+  text-decoration: none; 
+  transition: all 0.2s ease; 
+  display: inline-flex; 
+  align-items: center; 
 }
 
+#saveFileBtn:hover, .link:hover { 
+  background: rgba(71, 85, 105, 0.4); 
+  color: var(--text-main); 
+}
 
-          
-        .speak-msg-btn:hover, .copy-btn:hover { background: #475569; color: #f8fafc; }
-        .error .msg { background: #7f1d1d; border: 1px solid #f87171; color: #fca5a5; }
-        .msg p { margin: 0 0 8px 0; }
-        .msg p:last-child { margin-bottom: 0; }
-        .msg code { background: #1e293b; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.85rem; color: #f43f5e; }
-        .msg pre { background: #0f172a; padding: 12px; border-radius: 8px; overflow-x: auto; margin: 8px 0; border: 1px solid #334155; }
-        .msg pre code { background: transparent; padding: 0; color: #e2e8f0; font-size: 0.85rem; }
-        .msg ul, .msg ol { margin: 4px 0; padding-left: 20px; }
-        .thinking { opacity: 0.7; font-style: italic; animation: pulse 1.5s infinite ease-in-out; }
-        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+.input-group { 
+  display: flex; 
+  gap: 8px; 
+  align-items: center; 
+  width: 100%;
+  flex-shrink: 0; 
+}
 
-          #intro {
-                display: block;
-          }
-          #ai-page {
-                display: none;
-          }
-          
-@media (max-width: 500px) {
-    #chat-container {
-        padding: 12px;
-        height: 82dvh; /* Slightly shorter container to fit native mobile browser bars */
-    }
-      
-    </style>
+input { 
+  flex: 1; 
+  min-width: 0; 
+  padding: 12px 16px; 
+  border-radius: 10px; 
+  border: 1px solid var(--input-border); 
+  background: var(--input-bg); 
+  color: var(--text-main); 
+  font-size: 0.95rem; 
+  outline: none; 
+  transition: border-color 0.2s; 
+}
+
+input:focus { 
+  border-color: #3b82f6; 
+}
+
+button { 
+  padding: 0 14px; 
+  height: 44px;
+  border-radius: 10px; 
+  border: none; 
+  background: #3b82f6; 
+  color: white; 
+  font-weight: bold; 
+  font-size: 0.85rem; 
+  cursor: pointer; 
+  transition: background 0.2s, opacity 0.2s; 
+}
+
+button:hover { 
+  background: #2563eb; 
+}
+
+button:disabled { 
+  background: #475569; 
+  cursor: not-allowed; 
+  opacity: 0.6; 
+}
+
+#upload-btn, #mic-btn { 
+  width: 44px; 
+  min-width: 44px; 
+  height: 44px; 
+  padding: 0; 
+  font-size: 1.1rem; 
+  flex-shrink: 0; 
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+
+#upload-btn { background: #64748b; }
+#mic-btn { background: #10b981; }
+#mic-btn:hover { background: #059669; }
+#mic-btn.listening { background: #ef4444; animation: pulse 1.5s infinite; }
+
+/* 5. Chat Bubbles */
+.msg-wrapper { 
+  display: flex; 
+  flex-direction: column; 
+  max-width: 85%; 
+  position: relative; 
+}
+
+.msg-wrapper.user { align-self: flex-end; align-items: flex-end; }
+.msg-wrapper.ai { align-self: flex-start; align-items: flex-start; }
+
+.msg { 
+  padding: 12px 16px; 
+  border-radius: 12px; 
+  line-height: 1.5; 
+  word-wrap: break-word; 
+  font-size: 0.95rem; 
+  width: 100%; 
+}
+
+.user .msg { 
+  background: #3b82f6; 
+  color: white; 
+  border-bottom-right-radius: 2px; 
+}
+
+.ai .msg { 
+  background: var(--input-bg); 
+  color: var(--text-main); 
+  border-bottom-left-radius: 2px; 
+}
+
+.action-buttons { 
+  display: flex; 
+  gap: 6px; 
+  margin-top: 4px; 
+  align-self: flex-start; 
+}
+
+.speak-msg-btn, .copy-btn { 
+  background: var(--bg-surface); 
+  color: var(--text-muted); 
+  font-size: 0.75rem; 
+  font-weight: normal; 
+  padding: 4px 8px; 
+  border-radius: 6px; 
+  border: 1px solid var(--border-color); 
+  height: auto; 
+  cursor: pointer; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+
+.speak-msg-btn:hover, .copy-btn:hover { 
+  background: var(--input-border); 
+  color: var(--text-main); 
+}
+
+/* 6. Sidebar Panel */
+.left-footer-btns { display: flex; gap: 8px; }
+#toggleSidebarBtn { 
+  background: rgba(51, 65, 85, 0.2); 
+  color: var(--text-muted); 
+  font-size: 0.75rem; 
+  font-weight: 500; 
+  padding: 6px 12px; 
+  border-radius: 8px; 
+  border: 1px solid var(--border-color); 
+}
+#toggleSidebarBtn:hover { background: rgba(71, 85, 105, 0.4); color: var(--text-main); }
+
+#sidebar { 
+  position: fixed; 
+  top: 0; 
+  right: -300px; 
+  width: 300px; 
+  height: 100vh; 
+  background: var(--bg-surface); 
+  border-left: 1px solid var(--border-color); 
+  box-shadow: -10px 0 30px rgba(0,0,0,0.3); 
+  z-index: 1000; 
+  transition: right 0.3s ease; 
+  padding: 20px; 
+  display: flex; 
+  flex-direction: column; 
+}
+
+#sidebar.open { right: 0; }
+
+#sidebarOverlay { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100vw; 
+  height: 100vh; 
+  background: rgba(0,0,0,0.5); 
+  z-index: 999; 
+  display: none; 
+}
+#sidebarOverlay.open { display: block; }
+
+.sidebar-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 16px; 
+  border-bottom: 1px solid var(--border-color); 
+  padding-bottom: 10px; 
+}
+.sidebar-header h3 { margin: 0; font-size: 1.1rem; color: var(--text-main); }
+
+#newChatBtn { background: #3b82f6; width: 100%; margin-bottom: 16px; padding: 10px; }
+#newChatBtn:hover { background: #2563eb; }
+
+#sessionList { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+.session-item { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  background: var(--bg-inner); 
+  padding: 10px 12px; 
+  border-radius: 8px; 
+  border: 1px solid transparent; 
+  cursor: pointer; 
+  transition: all 0.2s ease; 
+}
+.session-item:hover { border-color: var(--border-color); background: var(--input-bg); }
+.session-item.active { border-color: #3b82f6; background: rgba(59, 130, 246, 0.1); }
+.session-title { font-size: 0.85rem; color: var(--text-main); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; margin-right: 8px; }
+.session-delete-btn { background: transparent; color: var(--text-muted); border: none; padding: 4px 8px; font-size: 0.8rem; border-radius: 4px; }
+.session-delete-btn:hover { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+/* 7. Code, Elements & Animations */
+.error .msg { background: #7f1d1d; border: 1px solid #f87171; color: #fca5a5; }
+.msg p { margin: 0 0 8px 0; }
+.msg p:last-child { margin-bottom: 0; }
+.msg code { background: var(--bg-surface); padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.85rem; color: #f43f5e; }
+.msg pre { background: var(--bg-main); padding: 12px; border-radius: 8px; overflow-x: auto; margin: 8px 0; border: 1px solid var(--border-color); }
+.msg pre code { background: transparent; padding: 0; color: var(--text-main); font-size: 0.85rem; }
+.msg ul, .msg ol { margin: 4px 0; padding-left: 20px; }
+.thinking { opacity: 0.7; font-style: italic; animation: pulse 1.5s infinite ease-in-out; }
+
+@keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+#intro { display: block; } 
+#ai-page {
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#ai-page.active {
+  display: flex; /* use this class to show it via JS instead of inline style overrides */
+}
+ 
+
+@media (max-width: 500px) { 
+  #chat-container { padding: 12px; height: 85dvh; } 
+}
+
+</style>
+
 </head>
 <body>
+      <button id="themeToggleBtn" aria-label="Toggle theme">🌓</button>
+
       <!-- Main responsive wrapper (Using an absolute minimum of 140px on laptop screens via a dynamic media-query style inline rule) -->
 <div id="intro" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #2d3748; background-color: #f7fafc; padding: calc(40px + 6vw) 5% 5% 5%; box-sizing: border-box; width: 100%; min-height: 100vh;">
   
@@ -441,6 +509,69 @@
 <div id="sidebarOverlay" onclick="toggleSidebar()"></div>
             
       </div>
+
+
+
+
+
+      <script>
+
+const themeToggleBtn = document.getElementById('themeToggleBtn');
+const currentTheme = localStorage.getItem('theme');
+
+// Check for saved user preference, otherwise use system preference
+const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+const initialTheme = currentTheme || (systemPrefersLight ? 'light' : 'dark');
+
+// Apply initially determined theme
+document.documentElement.setAttribute('data-theme', initialTheme);
+updateToggleIcon(initialTheme);
+
+// Toggle event listener
+themeToggleBtn.addEventListener('click', () => {
+  const activeTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
+  
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+  updateToggleIcon(newTheme);
+});
+
+function updateToggleIcon(theme) {
+  themeToggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+
+
+            
+      </script>
+
+
+      <script>
+
+
+            // Swipe gesture to close sidebar on mobile
+let touchStartX = 0;
+let touchEndX = 0;
+const sidebar = document.getElementById('sidebar');
+
+sidebar.addEventListener('touchstart', e => {
+  touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+sidebar.addEventListener('touchend', e => {
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipe();
+}, { passive: true });
+
+function handleSwipe() {
+  const swipeDistance = touchEndX - touchStartX;
+  // Detects a clear swipe to the right (minimum 50px) when the sidebar is open
+  if (swipeDistance > 50 && sidebar.classList.contains('open')) {
+    toggleSidebar();
+  }
+}
+
+      </script>
 
 
 
