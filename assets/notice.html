@@ -5,7 +5,401 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PALRHEA AI</title>
     <script src="https://jsdelivr.com/npm/marked@4.3.0/marked.min.js"></script>
-    <link rel="shortcut icon" href="assets/favicon.svg" >
+    <link rel="shortcu<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PALRHEA Notice & Setup Guide</title>
+    <link rel="shortcut icon" href="favicon.svg">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-dark: #0f172a;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 8px;
+            font-weight: 800;
+            font-size: 2.2rem;
+            letter-spacing: -0.03em;
+            color: var(--text-dark);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+        }
+
+        .creator-badge {
+            background-color: #eff6ff;
+            color: var(--primary-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: var(--text-dark);
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        .intro-p {
+            font-size: 1.05rem;
+            color: #475569;
+            margin-bottom: 32px;
+        }
+
+        .accordion-heading {
+            background-color: #f1f5f9;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px 24px;
+            margin: 16px 0;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: all 0.2s ease;
+        }
+
+        .accordion-heading:hover {
+            background-color: #e2e8f0;
+            border-color: #cbd5e1;
+        }
+
+        .accordion-heading::after {
+            content: '▼';
+            font-size: 0.8rem;
+            color: #64748b;
+            transition: transform 0.2s ease;
+        }
+
+        .accordion-heading.active {
+            background-color: #e2e8f0;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            margin-bottom: 0;
+        }
+
+        .accordion-heading.active::after {
+            transform: rotate(180deg);
+        }
+
+        .drp-dwns {
+            display: none;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            margin-bottom: 16px;
+            background: #ffffff;
+        }
+
+        /* Video Container for Professional Look */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            border-radius: 8px;
+            margin: 16px 0;
+            box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .device-tabs {
+            display: flex;
+            gap: 8px;
+            margin: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 6px 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            color: #64748b;
+            border-radius: 6px;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .device-content {
+            display: none;
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .device-content.active {
+            display: block;
+        }
+
+        img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            margin: 16px 0;
+            display: block;
+        }
+
+        ol, ul {
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        code {
+            background-color: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #b91c1c;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 0.95rem;
+            color: #64748b;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 16px;
+            font-weight: 600;
+            color: var(--primary-color);
+            background: #eff6ff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .back-link:hover {
+            background: #dbeafe;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div style="text-align: center;">
+        <span class="creator-badge">By Al-amin Opemipo Abisiga (@lord-999999)</span>
+    </div>
+    <h1>Privacy Notice & User Guide</h1>
+    <p class="subtitle">Official Documentation for PALRHEA AI Deployment</p>
+    
+    <h3>What is Palrhea AI?</h3>
+    <p class="intro-p">Palrhea AI is an ultra lightweight AI client designed for free, fast, and convenient local execution. Built entirely as an HTML5 ecosystem, it operates locally on your machine—meaning it requires absolutely no persistent network connectivity to run once deployed onto your device.</p>
+
+    <!-- Section 1 -->
+    <div class="hh accordion-heading" data-target="section1-content">1. Download Strategy & Archive Extraction</div>
+    <div id="section1-content" class="drp-dwns">
+        <p><b>PALRHEA AI can be retrieved using two secure methodologies:</b></p>
+        <ol>
+            <li>Navigate to the interactive web portal and select the <b>"Download PALRHEA AI"</b> launcher action at the bottom of the interface.</li>
+            <li>Clone or extract the production-ready distribution container hosted securely on <a href="https://github.com" target="_blank">GitHub.com</a>.</li>
+        </ol>
+        
+        <p>To deploy the client ecosystem from the GitHub distribution trunk, execute the following step-by-step pipeline:</p>
+        <ul>
+            <li><b>Step 1:</b> Access the source landing directory [GitHub URL]: <a href="https://github.com" target="_self">PALRHEA-AI Repository</a> maintained by developer trunk <a href="https://github.com" target="_blank">lord-999999</a>.</li>
+            <li><b>Step 2:</b> Force desktop viewport rendering. If operating via a mobile device browser, access configuration parameters and toggle <b>"Desktop site"</b> onto an active state.<br>
+                <img src="desktop.png" alt="Desktop client viewport configuration overlay screenshot inside mobile Chrome">
+                <i>Warning: If desktop workspace emulation is bypassed, step 3 dynamic context modals will fail to initialize.</i>
+            </li>
+            <li><b>Step 3:</b> Upon structural context generation, target and click the green <b>Code</b> layout element to reveal the primary version-control dropdown menu.<br>
+                <img src="code.png" alt="GitHub workspace repository interface with highlighted Code selection state">
+            </li>
+            <li><b>Step 4:</b> Select the terminal asset link explicitly designated as <b>"Download ZIP"</b> located at the base of the dynamic canvas layout.<br>
+                <img src="zip.png" alt="Active dropdown contextual view highlighting the Download ZIP file action block">
+            </li>
+            <li><b>Step 5:</b> The infrastructure will route your thread sequence into a sub-domain pipeline where system alerts will require verification of file system write permissions.</li>
+            <li><b>Step 6:</b> You may safely custom-name the runtime compilation array asset file during input verification. However, you must enforce string confirmation matching the target extension rule: <code>.zip</code>.<br>
+                <img src="save-zip.png" alt="Native OS target save context confirming archive naming rule parameters">
+            </li>
+                        <li><b>Step 7:</b> Commit file creation by executing a touch or click interface command on <b>Save</b> or <b>Download</b>.<br>
+                <img src="save.png" alt="Actionable operating system download execution alert element">
+            </li>
+        </ul>
+
+        <h4 style="margin-top:24px; margin-bottom:8px; color:var(--text-dark);">How to Extract the File Container (.zip)</h4>
+        <p>Before launching, the archive payload contents must be safely decompressed to your local device file systems:</p>
+        
+        <div class="device-tabs">
+            <button class="tab-btn active" onclick="switchTab(event, 'win-zip')">Windows</button>
+            <button class="tab-btn" onclick="switchTab(event, 'mac-zip')">macOS</button>
+            <button class="tab-btn" onclick="switchTab(event, 'mobile-zip')">Mobile (iOS/Android)</button>
+        </div>
+
+        <div id="win-zip" class="device-content active">
+            Locate the downloaded file wrapper → Right-click the asset folder container → Choose <b>"Extract All..."</b> from the layout menu context → Select an output path location → Click the final <b>Extract</b> prompt.
+        </div>
+        <div id="mac-zip" class="device-content">
+            Locate the asset within Finder space → Perform a standard mouse <b>double-click</b> action directly on the <code>.zip</code> file object wrapper. The native system Archive Utility engine instantly initializes data extraction safely into the exact matching local path.
+        </div>
+        <div id="mobile-zip" class="device-content">
+            <b>iOS:</b> Fire up the system Files ecosystem utility → Press down on the item target framework → Tap directly on <b>"Uncompress"</b> or tap once to unfold.<br>
+            <b>Android:</b> Launch your Files by Google application tool workspace → Tap directly over the file → Click the pop-up confirmation marker titled <b>"Extract"</b>.
+        </div>
+
+        <p style="margin-top:16px;"><b>Video Walkthrough:</b> Watch this production walkthrough detailing exact archive compression file extraction processes across platforms:</p>
+        <div class="video-container">
+            <iframe src="https://youtube.com" title="Decompressing ZIP Archives Setup Tutorial" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="hh accordion-heading" data-target="section2-content">2. Local Deployment & Application Execution</div>
+    <div id="section2-content" class="drp-dwns">
+        <p>PALRHEA AI relies entirely on standard HTML5 client technology, letting you view it in any modern browser without configuring specialized local server hosts or sandbox tools.</p>
+        
+        <h4 style="color:var(--text-dark); margin-bottom:8px;">How to Initialize and Run the Client Document:</h4>
+        <ul>
+            <li><b>Method A (Double-Click Execution):</b> Navigate straight into the unzipped folder asset database workspace. Locate the main client entry point file designated as <code>index.html</code> (or similar <code>.html</code> file) and execute a standard mouse double-click action to seamlessly open the interface in your device's default web browser environment.</li>
+            <li><b>Method B (Drag and Drop Protocol):</b> Launch any preferred modern browser platform window (such as Chrome, Firefox, Safari, or Edge). Simply click and drag the local <code>.html</code> file directly into the main address bar area or open page space to instantly parse and render the application canvas.</li>
+            <li><b>Method C (Manual File Mapping):</b> Right-click your offline app document file asset card → target and hover over the contextual choice <b>"Open with"</b> → select your preferred web browser engine.</li>
+        </ul>
+
+        <p><b>Video Walkthrough:</b> If you encounter an error where your system tries to open the program inside text software like Notepad instead of a web browser, use this quick rendering resolution guide:</p>
+        <div class="video-container">
+            <iframe src="https://youtube.com" title="Opening HTML Client Document inside Native Desktop Browsers" allowfullscreen></iframe>
+        </div>
+
+        <img src="alop-home.png" alt="PALRHEA AI operational offline deployment landing screen illustration dashboard view">
+    </div>
+
+    <!-- Section 3 -->
+    <div class="hh accordion-heading" data-target="section3-content">3. Terms of Deployment & Privacy Guardrails</div>
+    <div id="section3-content" class="drp-dwns">
+        <ul>
+            <li>Palrhea AI is entirely open-access and free to pull down, deploy locally, or distribute across internal peer networks.</li>
+            <li>The algorithmic models perform actions with optimal precision bounds, though automated clients may occasionally generate semantic errors or output hallucinations. Always verify structural data outputs independently.</li>
+            <li><b>Crucial Data Protection Warning:</b> Never transmit or insert high-risk personal identifiers—including credit card data records, banking credentials, or private personal data points—into the execution fields. The PALRHEA AI local node works programmatically without conscious human-centric oversight and does not manage standard privacy rules like a human operator.</li>
+            <li>Developer Al-amin Opemipo Abisiga (@lord-999999) along with any corporate associates bear zero legal or functional liabilities regarding performance regressions, data issues, or misuse arising from local code execution. Users accept full runtime agency.</li>
+            <li>All core system rights are reserved. Any unapproved publication, replication, or systematic modification of this architecture's source codebase files, framework structure, layouts, or structural styling formulas without written sign-off from <a href="https://github.com/lord-999999" target="_blank">Al-amin Opemipo Abisiga (@lord-999999)</a> is strictly illegal under international copyright enforcement laws. You can access the primary <a href="../LICENSE" target="_blank">distribution license</a> directly here.</li>
+            <li>The PALRHEA AI software project is safely hosted via the <a href="https://github.com" target="_blank">GitHub.com</a> version ecosystem framework. Review the public <a href="../LICENSE" target="_blank">license terms</a> for full usage compliance specifications.</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p>System Engineered and Invented by: <strong>PALMEGA (founder & developer: Al-amin Opemipo Abisiga).</strong></p>
+        <a class="back-link" href="../index.html">← Return to PALRHEA AI Core Workspace</a>
+    </div>
+</div>
+
+<script>
+    // Accordion Visibility Logic
+    const headings = document.querySelectorAll('.hh');
+    headings.forEach(heading => {
+        heading.addEventListener('click', () => {
+            const targetId = heading.getAttribute('data-target');
+            const contentBox = document.getElementById(targetId);
+            
+            heading.classList.toggle('active');
+            
+            if (contentBox.style.display === 'block') {
+                contentBox.style.display = 'none';
+            } else {
+                contentBox.style.display = 'block';
+            }
+        });
+    });
+
+    // Device Tab Switcher Logic
+    function switchTab(event, tabId) {
+        const container = event.target.parentElement.parentElement;
+        const tabs = container.querySelectorAll('.tab-btn');
+        const contents = container.querySelectorAll('.device-content');
+
+        tabs.forEach(tab => tab.classList.remove('active'));
+        contents.forEach(content => content.classList.remove('active'));
+
+        event.target.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+    }
+</script>
+<script src="console.js"></script>
+</body>
+</html>
+
+t icon" href="assets/favicon.svg" >
       <!-- PDF.js for parsing PDF documents -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 <!-- SheetJS for parsing Excel documents (.xlsx, .xls, .csv) -->
