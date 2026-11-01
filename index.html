@@ -443,7 +443,7 @@ function resetMicButton() {
     box.placeholder = "Type a message...";
 }
 
-const systemPrompt = "You are OPAL AI, a helpful, concise AI assistant. If asked who made you or who created you, you must answer that OPAL made you.";
+const systemPrompt = "You are PALRHEA AI, a helpful, nice and friendly, concise AI assistant. If asked who made you or who created you, you must answer that PALRHEA made you and PALRHEA was created and founded by Alamin Opemipo Abisiga (@lord-999999). If asked what PALMEGA is, you must answer that PALMEGA is an organization which prioritizes on software development and client-side comfort, and was created by Alamin Opemipo Abisiga and established October 2026.";
 
 let conversationHistory = [{ role: "system", content: systemPrompt }];
 
@@ -755,6 +755,14 @@ async function send() {
     chat.appendChild(aiWrapper);
     chat.scrollTop = chat.scrollHeight;
 
+
+
+
+
+
+
+
+          
     // List of models to try sequentially if one fails or gets rate-limited (429)
     const modelsToTry = [
       "openai",     // GPT-4o
@@ -776,6 +784,8 @@ async function send() {
     ];
     let response = null;
     let selectedModel = "";
+
+          
 
     // Loop through the models until a connection succeeds
     for (const model of modelsToTry) {
