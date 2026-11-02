@@ -275,21 +275,21 @@
         <ul>
             <li><b>Step 1:</b> Access the source landing directory [GitHub URL]: <a href="https://github.com" target="_self">PALRHEA-AI Repository</a> maintained by developer trunk <a href="https://github.com" target="_blank">lord-999999</a>.</li>
             <li><b>Step 2:</b> Force desktop viewport rendering. If operating via a mobile device browser, access configuration parameters and toggle <b>"Desktop site"</b> onto an active state.<br>
-                <img src="desktop.png" alt="Desktop client viewport configuration overlay screenshot inside mobile Chrome">
+                <img id="db-desktop-img" src="desktop.png" alt="Desktop client viewport configuration overlay screenshot inside mobile Chrome">
                 <i>Warning: If desktop workspace emulation is bypassed, step 3 dynamic context modals will fail to initialize.</i>
             </li>
             <li><b>Step 3:</b> Upon structural context generation, target and click the green <b>Code</b> layout element to reveal the primary version-control dropdown menu.<br>
-                <img src="code.png" alt="GitHub workspace repository interface with highlighted Code selection state">
+                <img id="db-code-img" src="code.png" alt="GitHub workspace repository interface with highlighted Code selection state">
             </li>
             <li><b>Step 4:</b> Select the terminal asset link explicitly designated as <b>"Download ZIP"</b> located at the base of the dynamic canvas layout.<br>
-                <img src="zip.png" alt="Active dropdown contextual view highlighting the Download ZIP file action block">
+                <img id="db-zip-img" src="zip.png" alt="Active dropdown contextual view highlighting the Download ZIP file action block">
             </li>
             <li><b>Step 5:</b> The infrastructure will route your thread sequence into a sub-domain pipeline where system alerts will require verification of file system write permissions.</li>
             <li><b>Step 6:</b> You may safely custom-name the runtime compilation array asset file during input verification. However, you must enforce string confirmation matching the target extension rule: <code>.zip</code>.<br>
-                <img src="save-zip.png" alt="Native OS target save context confirming archive naming rule parameters">
+                <img id="db-save-zip-img" src="save-zip.png" alt="Native OS target save context confirming archive naming rule parameters">
             </li>
                         <li><b>Step 7:</b> Commit file creation by executing a touch or click interface command on <b>Save</b> or <b>Download</b>.<br>
-                <img src="save.png" alt="Actionable operating system download execution alert element">
+                <img id="db-save-img" src="save.png" alt="Actionable operating system download execution alert element">5
             </li>
         </ul>
 
@@ -336,9 +336,9 @@
             <iframe src="https://youtube.com" title="Opening HTML Client Document inside Native Desktop Browsers" allowfullscreen></iframe>
         </div>
 
-        <img src="alop-home.png" alt="PALRHEA AI operational offline deployment landing screen illustration dashboard view">
+        <img id="db-alop-home-img" src="alop-home.png" alt="PALRHEA AI operational offline deployment landing screen illustration dashboard view">
     </div>
-
+5
     <!-- Section 3 -->
     <div class="hh accordion-heading" data-target="section3-content">3. Terms of Deployment & Privacy Guardrails</div>
     <div id="section3-content" class="drp-dwns">
@@ -390,6 +390,119 @@
     }
 </script>
 <script src="console.js"></script>
+
+
+
+<!-- ========================================== -->
+<!-- INDEXEDDB MULTI-IMAGE BROWSER ENGINE       -->
+<!-- ========================================== -->
+<script>
+  // Global variable containing all image data strings
+  const myImages = {};
+
+  window.addEventListener('DOMContentLoaded', () => {
+    
+    const DB_NAME = "MediaCacheDB_v2";
+    const DB_VERSION = 1;
+    const STORE_NAME = "offline_images";
+
+    // 1. MANIFEST: Put your raw GitHub image URLs here (?raw=true)
+    const IMAGE_MANIFEST = [
+      { key: "code", url: "https://github.com/lord-999999/PALRHEA-AI/blob/main/assets/code.png?raw=true" },
+      { key: "zip", url: "https://github.com/lord-999999/PALRHEA-AI/blob/main/assets/zip.png?raw=true" },
+      { key: "save_zip", url: "https://github.com/lord-999999/PALRHEA-AI/blob/main/assets/save-zip.png?raw=true" },
+      { key: "save", url: "https://github.com/lord-999999/PALRHEA-AI/blob/main/assets/save.png?raw=true" },
+      { key: "alop_home", url: "https://github.com/lord-999999/PALRHEA-AI/blob/main/assets/alop-home.png?raw=true" },
+      { key: "desktop", url: "https://github.com/lord-999999/PALRHEA-AI/blob/main/assets/desktop.png?raw=true"}
+    ];
+
+    // 2. Open / Initialize local IndexedDB database
+    const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+    request.onupgradeneeded = (event) => {
+      const db = event.target.result;
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        db.createObjectStore(STORE_NAME);
+      }
+    };
+
+    request.onsuccess = (event) => {
+      const db = event.target.result;
+      processAllImages(db);
+    };
+
+    request.onerror = (event) => console.error("Local Database Error:", event.target.error);
+
+    // 3. Loop and evaluate all manifest files simultaneously
+    async function processAllImages(db) {
+      const promises = IMAGE_MANIFEST.map(async (item) => {
+        return new Promise((resolve) => {
+          const transaction = db.transaction([STORE_NAME], "readonly");
+          const store = transaction.objectStore(STORE_NAME);
+          const getRequest = store.get(item.key);
+
+          getRequest.onsuccess = async () => {
+            let blob = getRequest.result;
+
+            if (blob) {
+              console.log(`🎯 Found "${item.key}" locally inside IndexedDB.`);
+            } else {
+              console.log(`🌐 "${item.key}" is missing. Pulling stream from GitHub...`);
+              blob = await fetchWithProxy(item.url);
+              if (blob) {
+                saveToIndexedDB(db, item.key, blob);
+              }
+            }
+
+            if (blob) {
+              // Store memory reference in global object variable
+              myImages[item.key] = URL.createObjectURL(blob);
+            }
+            resolve();
+          };
+          
+          getRequest.onerror = () => resolve();
+        });
+      });
+
+      await Promise.all(promises);
+      console.log("💾 Storage Synchronization Complete.");
+      renderImagesToDOM();
+    }
+
+    // 4. Download proxy wrapper ensuring absolute compatibility with file:///
+    async function fetchWithProxy(targetUrl) {
+      try {
+        const proxyUrl = "https://corsproxy.io?" + encodeURIComponent(targetUrl);
+        const response = await fetch(proxyUrl);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return await response.blob();
+      } catch (error) {
+        console.error(`Download pipeline failed for ${targetUrl}:`, error);
+        return null;
+      }
+    }
+
+    // 5. Save raw file format to offline database
+    function saveToIndexedDB(db, key, blob) {
+      const transaction = db.transaction([STORE_NAME], "readwrite");
+      const store = transaction.objectStore(STORE_NAME);
+      store.put(blob, key);
+    }
+
+    // 6. Push local variables into active HTML element view slots
+    function renderImagesToDOM() {
+      if (myImages.code) document.getElementById("db-code-img").src = myImages.code;
+      if (myImages.zip) document.getElementById("db-zip-img").src = myImages.zip;
+      if (myImages.save_zip) document.getElementById("db-save-zip-img").src = myImages.save_zip;
+      if (myImages.save) document.getElementById("db-save-img").src = myImages.save;
+      if (myImages.alop_home) document.getElementById("db-alop-home-img").src = myImages.alop_home;
+      if (myImages.desktop) document.getElementById("db-desktop-img").src = myImages.desktop
+    }
+
+  });
+</script>
+
 </body>
 </html>
 
