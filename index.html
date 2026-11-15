@@ -3,31 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="UTF-8" /> 
+    
       <meta name="description" content="PALRHEA is an ultra-light-weight AI that requires no fees whatsoever. It was created by PALMEGA (Founder: Alamin Opemipo Abisiga (@lord-999999 on github.com).) on October 2026 as a light-weight, free and easy-to-download, easy to use and share, and navigate AI. It was created by Alamin Opemipo Abisiga to bring the premium conveniency and comfort of Artificial Intelligence to the seat of normal, everyday indivuals like you and him for no costs whatsoever." />
       <meta name="keywords" content="PALRHEA, PALRHEA-AI, PALRHEA_AI, palrhea, palrhea ai, palrheaai, pal rhea, pal rhea ai, palrhea artificial intelligence, palrhea bot, palrhea chatbot, palrhea platform, palrhea app, palrea, palrea ai, palraea, palraea ai, palrhea-ai chatbot, best ai assistant, palrhea agent, palrhea software, palrhea tech, palrhea solution" />
 
       <meta name="copyright" content="Copyright (C) 2026 Al-amin Opemipo Abisiga (@lord-999999). All rights reserved." />
-      <meta name="robots" content="index" />
-      <meta name="robots" content="follow" />
-      <meta http-equiv="Cache-control" content="Public">
-      <meta http-equiv="expires" content="4000000000000" />
-      <meta http-equiv="refresh" content="6000000000000" />
+      <meta name="robots" content="index, follow" />
+
     <title>PALRHEA AI | Smart Conversational AI Assistant</title>
-    <!-- Third-party Scripts -->
-<script src="https://jsdelivr.com/npm/marked@4.3.0/marked.min.js"></script>
+        <!-- Third-party Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
 
     <!-- Modern browsers (SVG) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 0 24 24' width='24'%3E%3Cg transform='translate(12, 12) scale(-1, 1) translate(-12, -12)'%3E%3Cpath d='M11 2a9 9 0 105.641 16.01.966.966 0 00.152.197l3.5 3.5a1 1 0 101.414-1.414l-3.5-3.5a1 1 0 00-.197-.153A8.96 8.96 0 0020 11a9 9 0 00-9-9Zm0 2a7 7 0 110 14 7 7 0 010-14Z' fill='%2300ffff'/%3E%3C/g%3E%3C/svg%3E">
-
-<!-- <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"> -->
-
-
-<!-- Apple devices (iOS Home Screen) -->
-<!-- <link rel="apple-touch-icon" href="assets/favicon.svg"> -->
-
 
 
   <style>
@@ -59,7 +51,7 @@
   box-sizing: border-box; 
 }
 
-html, body {
+html {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -407,6 +399,54 @@ button:disabled {
   #chat-container { padding: 12px; height: 85dvh; } 
 }
 
+/* 8. Code blocks with copy button */
+.msg .code-block { margin: 10px 0; border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; background: var(--bg-main); }
+.code-head { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; background: var(--bg-surface); border-bottom: 1px solid var(--border-color); }
+.code-lang { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+.code-copy-btn { height: auto; padding: 4px 10px; font-size: 0.72rem; font-weight: 600; border-radius: 6px; background: #3b82f6; color: #fff; }
+.msg .code-block pre { margin: 0; border: none; border-radius: 0; background: transparent; }
+.msg table { border-collapse: collapse; display: block; overflow-x: auto; max-width: 100%; margin: 8px 0; }
+.msg th, .msg td { border: 1px solid var(--border-color); padding: 6px 10px; }
+.msg h1, .msg h2, .msg h3 { margin: 10px 0 6px 0; font-size: 1.05rem; }
+.msg a { color: #60a5fa; }
+.user .msg a { color: #fff; }
+
+/* 9. Generated media */
+.media-card { margin: 10px 0; max-width: 420px; }
+.media-frame { position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 12px; overflow: hidden; background: var(--bg-inner); border: 1px solid var(--border-color); }
+.media-frame.video { aspect-ratio: 16 / 9; }
+.media-status { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 12px; font-size: 0.85rem; color: var(--text-muted); animation: pulse 1.5s infinite ease-in-out; }
+.media-status.failed { z-index: 2; animation: none; color: #fca5a5; }
+.media-el { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+.media-caption { font-size: 0.72rem; color: var(--text-muted); margin-top: 6px; font-style: italic; }
+.media-actions { display: flex; gap: 6px; margin-top: 6px; }
+.media-btn { height: auto; padding: 4px 10px; font-size: 0.75rem; font-weight: 500; border-radius: 6px; background: var(--bg-surface); color: var(--text-muted); border: 1px solid var(--border-color); }
+.media-btn:hover { background: var(--input-border); color: var(--text-main); }
+.media-pending { opacity: 0.7; font-style: italic; }
+
+/* 10. Attachments */
+#attachBar { display: none; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.attach-chip, .file-chip { display: inline-flex; align-items: center; gap: 4px; font-size: 0.75rem; padding: 3px 8px; border-radius: 999px; background: var(--input-bg); color: var(--text-main); border: 1px solid var(--border-color); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.user .file-chip { background: rgba(255,255,255,0.2); color: #fff; border-color: rgba(255,255,255,0.35); }
+.msg-files { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.attach-x { height: auto; padding: 0 4px; background: transparent; color: var(--text-muted); font-size: 0.8rem; }
+.attach-x:hover { background: transparent; color: #ef4444; }
+#settingsBtn { background: rgba(51, 65, 85, 0.2); color: var(--text-muted); font-size: 0.75rem; font-weight: 500; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border-color); }
+#settingsBtn:hover { background: rgba(71, 85, 105, 0.4); color: var(--text-main); }
+
+/* 11. Settings dialog, retry buttons */
+#settingsDialog { background: var(--bg-surface); color: var(--text-main); border: 1px solid var(--border-color); border-radius: 12px; width: 92%; max-width: 420px; padding: 20px; }
+#settingsDialog::backdrop { background: rgba(0,0,0,0.55); }
+#settingsDialog h3 { margin: 0 0 8px 0; }
+#settingsDialog h4 { margin: 16px 0 4px 0; font-size: 0.9rem; }
+#settingsDialog label { display: block; margin: 8px 0; font-size: 0.8rem; color: var(--text-muted); }
+#settingsDialog input { width: 100%; margin-top: 4px; }
+.set-note { font-size: 0.75rem; color: var(--text-muted); margin: 4px 0 8px 0; }
+.set-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+.set-actions button:first-child, .set-actions button:nth-child(2) { background: var(--input-bg); color: var(--text-main); border: 1px solid var(--border-color); }
+.err-btn { height: auto; padding: 4px 10px; font-size: 0.75rem; font-weight: 600; border-radius: 6px; background: #3b82f6; color: #fff; }
+.err-note { font-size: 0.75rem; color: #f59e0b; margin-top: 4px; }
+
 </style>
 
 </head>
@@ -472,26 +512,20 @@ button:disabled {
       <div id="ai-page">
     <div id="chat-container">
         <h2>PALRHEA AI</h2>
-        <div id="messages">
-            <!-- Initial AI Message Wrapper with standard action panel layout -->
-            <div class="msg-wrapper ai">
-                <div class="msg">Hello! Ask me anything. I am powered by a live, open-infrastructure cloud engine.</div>
-                <div class="action-buttons">
-                    <button class="speak-msg-btn" onclick="speakText(this.closest('.msg-wrapper').querySelector('.msg').innerText)">🔊</button>
-                    <button class="copy-btn" onclick="copyText(this.closest('.msg-wrapper').querySelector('.msg').innerText, this)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M9 18a2 2 0 0 1-1.425-.575A2 2 0 0 1 7 16V4q0-.825.575-1.4Q8.175 2 9 2h9q.825 0 1.4.6.6.575.6 1.4v12q0 .825-.6 1.425Q18.825 18 18 18zm0-2h9V4H9zm-4 6a2 2 0 0 1-1.425-.575A2 2 0 0 1 3 20V6h2v14h11v2zm4-6V4z"/></svg>
-                    </button>
-                </div>
-            </div>
-        </div>
+        <div id="messages"></div>
+        <div id="attachBar"></div>
         <div class="input-group">
-  <input type="text" id="userInput" placeholder="Type a message..." autocomplete="off" onkeypress="if(event.key === 'Enter') send()" />
+  <select id="mediaModelSelect" style="padding: 0 8px; height: 44px; border-radius: 10px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--text-main); font-size: 0.85rem; outline: none; cursor: pointer; max-width: 110px;">
+    <option value="flux">🎨 flux</option>
+    <option value="turbo">🎨 turbo</option>
+  </select>
+  <input type="text" id="userInput" placeholder="Type a message..." autocomplete="off" />
   <button id="sendBtn" onclick="send()">Send</button>
-  <!-- Hidden file selector and explicit paperclip button -->
-  <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelect(this)" />
-  <button id="upload-btn" onclick="document.getElementById('fileInput').click()" >📎</button>
+  <input type="file" id="fileInput" multiple style="display: none;" onchange="handleFileSelect(this)" />
+  <button id="upload-btn" title="Attach any file" aria-label="Attach files" onclick="document.getElementById('fileInput').click()">📎</button>
   <button id="mic-btn" onclick="toggleListening()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" aria-hidden="true" viewBox="0 -960 960 960"><path d="M480-400q-50 0-85-35t-35-85v-240q0-50 35-85t85-35 85 35 35 85v240q0 50-35 85t-85 35m-40 280v-123q-104-14-172-93t-68-184h80q0 83 58.5 141.5T480-320t141.5-58.5T680-520h80q0 105-68 184t-172 93v123z"/></svg></button>
 </div>
+
 
     </div>
 
@@ -500,6 +534,7 @@ button:disabled {
     <div class="left-footer-btns">
         <button id="saveFileBtn">Download  Palrhea AI</button>
         <button id="toggleSidebarBtn" onclick="toggleSidebar()">💬 History Menu</button>
+        <button id="settingsBtn" type="button">⚙ Settings</button>
     </div>
     <a href="assets/notice.html" target="_blank" class="link">Privacy notice & more</a>
 </div>
@@ -591,13 +626,20 @@ function handleSwipe() {
   const introDIV = document.getElementById("intro");
   const openRheaBtn = document.getElementById("openRHEA"); // Renamed variable to avoid conflicts
 
-  // 2. Define your clear action function
-  function launchChatInterface() {
-    if (introDIV && aiDIV) {
-      introDIV.style.display = "none";
-      aiDIV.style.display = "block";
-    }
+  // 2. Define the clear action function
+  
+function launchChatInterface() {
+  if (introDIV && aiDIV) {
+    introDIV.style.setProperty("display", "none", "important");
+    aiDIV.style.display = "flex";
+    aiDIV.classList.add("active");
+    chat.scrollTop = chat.scrollHeight;
+    box.focus();
   }
+}
+
+
+
 
   // 3. Attach the clean event trigger wrapper
   if (openRheaBtn) {
@@ -608,611 +650,1127 @@ function handleSwipe() {
   }
 </script>
 
+<script>
+/* =====================================================================
+   PALRHEA AI - main application script
+   ===================================================================== */
 
-    <script>
+// ---------- Configuration ----------
+const API_BASE = "https://gen.pollinations.ai";
+const CHAT_ENDPOINT = "https://text.pollinations.ai/v1/chat/completions"; // the endpoint the original app used
+const LEGACY_TEXT_ENDPOINT = "https://text.pollinations.ai/openai";
+const SIMPLE_TEXT_ENDPOINT = "https://text.pollinations.ai/";        // plain GET, last resort
+const MODELS_ENDPOINT = "https://text.pollinations.ai/models";
+const LEGACY_IMAGE_BASE = "https://image.pollinations.ai/prompt/";
+let extraTextModels = []; // discovered at start-up, used as extra fallbacks
+let imageModels = ["flux", "turbo"];
+let videoModels = ["seedance", "veo"];
 
+const MAX_FILE_CHARS = 60000;        // per attached file
+const MAX_TOTAL_FILE_CHARS = 120000; // all attachments together
+const MAX_IMAGES = 6;                // images sent to the vision model per message
+const MAX_READ_BYTES = 100 * 1024 * 1024;
+const MAX_REQUEST_CHARS = 180000;    // trimmed history size sent to the API
 
-          const micSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" aria-hidden="true" viewBox="0 -960 960 960"><path d="M480-400q-50 0-85-35t-35-85v-240q0-50 35-85t85-35 85 35 35 85v240q0 50-35 85t-85 35m-40 280v-123q-104-14-172-93t-68-184h80q0 83 58.5 141.5T480-320t141.5-58.5T680-520h80q0 105-68 184t-172 93v123z"/></svg>`;
-          
-          const chat = document.getElementById("messages");
+const FENCE = "`".repeat(3);
+const systemPrompt = [
+  "You are PALRHEA AI, a helpful, friendly and concise AI assistant.",
+  "If asked who made you, answer that PALRHEA was created by Alamin Opemipo Abisiga (@lord-999999). If asked what PALMEGA is, answer that it is a software development organization established October 2026.",
+  "",
+  "FILES: The user can attach any kind of file. Text, tables, documents, PDFs and archive contents are placed in the message as text; attached images (and frames taken from videos or scanned PDFs) are visible to you. Use that content directly. Never say you cannot open an attached file. If a note says content was truncated, or only metadata was available, say so plainly and work with what you have.",
+  "",
+  "CODE FORMATTING (important): Whenever you write code, commands, configuration, SQL, HTML/CSS, or any text the user is likely to copy, put it inside a fenced Markdown code block with a language tag, for example " + FENCE + "python. Rules: (1) put ONLY the copyable content inside the block - never explanations, labels, line numbers, shell prompts such as '$' or '>>>', or placeholder lines like '...'; (2) write explanations outside the block, before or after it; (3) for several files use one block per file, with the file name in bold on the line directly above the block; (4) use separate blocks for separate commands or steps; (5) never put normal prose inside a code block, and use inline backticks only for short names.",
+  "",
+  "MEDIA: If the user asks you to generate, draw, make or create a picture, image or photo, reply with one short friendly sentence followed by a shortcode written exactly as [IMAGE: detailed visual description in English]. If the user asks for a video, animation or moving clip, use [VIDEO: detailed description of the scene]. Keep each description on one line with no square brackets inside it. Never describe an image in words instead of using the shortcode, and never use the shortcodes for anything else."
+].join("\n");
+
+// ---------- Elements & state ----------
+const chat = document.getElementById("messages");
 const box = document.getElementById("userInput");
 const btn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("mic-btn");
+const attachBar = document.getElementById("attachBar");
+const modelSelect = document.getElementById("mediaModelSelect");
 
-          box.focus();
+const micSVG = micBtn.innerHTML;
+const GREETING = "Hello! Ask me anything. I am powered by a live, open-infrastructure cloud engine.";
+const USER_Q_TAG = "\n\nUser Question: ";
+
+let conversationHistory = [{ role: "system", content: systemPrompt }];
+let activeSessionId = "session_" + Date.now();
+let chatSessions = {};
+let attachments = [];   // { name, text, images: [dataUrl] }
+let isBusy = false;     // true while a reply is streaming or files are being read
+
+// ---------- Small helpers ----------
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const clip = (s, n) => (s.length > n ? s.slice(0, n) + `\n\n[... truncated: ${s.length - n} more characters not shown ...]` : s);
+const fmtSize = b => (b < 1024 ? b + " B" : b < 1048576 ? (b / 1024).toFixed(1) + " KB" : (b / 1048576).toFixed(1) + " MB");
+const numId = id => Number(String(id).split("_")[1]) || 0;
+function hashStr(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0) % 1000000; }
+function getApiKey() { try { return localStorage.getItem("palrhea_api_key") || ""; } catch (e) { return ""; } }
+function keyParam() { const k = getApiKey(); return k ? "&key=" + encodeURIComponent(k) : ""; }
+
+function getCustom() {
+  const g = k => { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } };
+  return { url: g("palrhea_custom_url"), model: g("palrhea_custom_model"), key: g("palrhea_custom_key") };
+}
+function normalizeChatUrl(u) { u = u.trim().replace(/\/+$/, ""); return /\/chat\/completions$/.test(u) ? u : u + "/chat/completions"; }
+
+function openSettings() {
+  let dlg = document.getElementById("settingsDialog");
+  if (!dlg) {
+    dlg = document.createElement("dialog");
+    dlg.id = "settingsDialog";
+    dlg.innerHTML = `<h3>Settings</h3>
+      <label>Pollinations API key (optional)<input id="setKey" type="password" autocomplete="off"></label>
+      <h4>Backup AI endpoint (optional)</h4>
+      <p class="set-note">Any OpenAI-compatible service (for example Groq or OpenRouter). It is tried first; the free endpoints stay as fallbacks.</p>
+      <label>Endpoint URL<input id="setUrl" placeholder="https://api.groq.com/openai/v1" autocomplete="off"></label>
+      <label>Model name<input id="setModel" placeholder="llama-3.3-70b-versatile" autocomplete="off"></label>
+      <label>Its API key<input id="setCKey" type="password" autocomplete="off"></label>
+      <p class="set-note">Keys are stored only in this browser and are sent only to the matching service.</p>
+      <div class="set-actions"><button type="button" id="setCancel">Cancel</button><button type="button" id="setClear">Clear all</button><button type="button" id="setSave">Save</button></div>`;
+    document.body.appendChild(dlg);
+    const val = id => dlg.querySelector(id).value.trim();
+    const store = (k, v) => { try { v ? localStorage.setItem(k, v) : localStorage.removeItem(k); } catch (e) {} };
+    dlg.querySelector("#setCancel").onclick = () => dlg.close();
+    dlg.querySelector("#setClear").onclick = () => { ["palrhea_api_key", "palrhea_custom_url", "palrhea_custom_model", "palrhea_custom_key"].forEach(k => store(k, "")); dlg.close(); };
+    dlg.querySelector("#setSave").onclick = () => {
+      store("palrhea_api_key", val("#setKey"));
+      store("palrhea_custom_url", val("#setUrl"));
+      store("palrhea_custom_model", val("#setModel"));
+      store("palrhea_custom_key", val("#setCKey"));
+      dlg.close();
+    };
+  }
+  const c = getCustom();
+  dlg.querySelector("#setKey").value = getApiKey();
+  dlg.querySelector("#setUrl").value = c.url;
+  dlg.querySelector("#setModel").value = c.model;
+  dlg.querySelector("#setCKey").value = c.key;
+  dlg.showModal();
+}
+
+// ---------- Clipboard & speech ----------
+async function copyText(text, buttonElement) {
+  if (!text) return;
+  let ok = false;
+  try { await navigator.clipboard.writeText(text); ok = true; } catch (e) {
+    try { // fallback for file:// pages and older browsers
+      const ta = document.createElement("textarea");
+      ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+    } catch (e2) {}
+  }
+  if (buttonElement) {
+    const original = buttonElement.innerHTML;
+    buttonElement.textContent = ok ? "Copied!" : "Copy failed";
+    setTimeout(() => { buttonElement.innerHTML = original; }, 1800);
+  }
+}
 
 function speakText(text) {
-    window.speechSynthesis.cancel();
-    if (!text.trim()) return;
-    const cleanText = text.replace(/[*_`#\-]/g, '').trim();
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.rate = 1.0;
-    utterance.pitch = 1.0;
-    window.speechSynthesis.speak(utterance);
+  window.speechSynthesis.cancel();
+  if (!text || !text.trim()) return;
+  const clean = text.replace(/[*_`#]/g, "").trim();
+  const u = new SpeechSynthesisUtterance(clean);
+  window.speechSynthesis.speak(u);
 }
 
-function copyText(text, buttonElement) {
-    if (!text) return;
-    navigator.clipboard.writeText(text).then(() => {
-        const originalContent = buttonElement.innerHTML;
-        buttonElement.innerText = "Copied!";
-        setTimeout(() => {
-            buttonElement.innerHTML = originalContent;
-        }, 2000);
-    }).catch(err => {
-        console.error("Could not copy text: ", err);
-    });
-}
-
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+// ---------- Voice input ----------
+const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
 let recognition = null;
 let isListening = false;
 
-if (SpeechRecognition) {
-    recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.lang = 'en-US';
-    
-    recognition.onstart = () => {
-        isListening = true;
-        micBtn.textContent = "🛑";
-        micBtn.classList.add("listening");
-        box.placeholder = "Listening to your voice...";
-    };
-    recognition.onresult = (event) => {
-        const speechToText = event.results[0][0].transcript;
-        box.value = speechToText;
-        send();
-    };
-    recognition.onerror = (e) => {
-        console.error("Speech recognition error", e);
-        resetMicButton();
-    };
-    recognition.onend = () => {
-        resetMicButton();
-    };
+if (SpeechRecognitionAPI) {
+  recognition = new SpeechRecognitionAPI();
+  recognition.continuous = false;
+  recognition.lang = navigator.language || "en-US";
+  recognition.onstart = () => { isListening = true; micBtn.textContent = "🛑"; micBtn.classList.add("listening"); box.placeholder = "Listening to your voice..."; };
+  recognition.onresult = e => { box.value = e.results[0][0].transcript; send(); };
+  recognition.onerror = () => resetMicButton();
+  recognition.onend = () => resetMicButton();
 } else {
-    micBtn.style.display = "none";
+  micBtn.style.display = "none";
 }
-
 function toggleListening() {
-    if (!recognition) return;
-    window.speechSynthesis.cancel();
-    if (isListening) {
-        recognition.stop();
-    } else {
-        recognition.start();
-    }
+  if (!recognition) return;
+  window.speechSynthesis.cancel();
+  try { isListening ? recognition.stop() : recognition.start(); } catch (e) { resetMicButton(); }
 }
-
 function resetMicButton() {
-    isListening = false;
-    micBtn.innerHTML = micSVG;
-    micBtn.classList.remove("listening");
-    box.placeholder = "Type a message...";
+  isListening = false;
+  micBtn.innerHTML = micSVG;
+  micBtn.classList.remove("listening");
+  box.placeholder = attachments.length ? `📎 ${attachments.length} file(s) attached. Type your prompt...` : "Type a message...";
 }
 
-const systemPrompt = "You are PALRHEA AI, a helpful, nice and friendly, concise AI assistant. If asked who made you or who created you, you must answer that PALRHEA made you and PALRHEA was created and founded by Alamin Opemipo Abisiga (@lord-999999). If asked what PALMEGA is, you must answer that PALMEGA is an organization which prioritizes on software development and client-side comfort, and was created by Alamin Opemipo Abisiga and established October 2026.";
+// ---------- Markdown rendering (safe) ----------
+if (typeof marked !== "undefined") marked.setOptions({ gfm: true, breaks: true });
+if (typeof DOMPurify !== "undefined") {
+  DOMPurify.addHook("afterSanitizeAttributes", node => {
+    if (node.tagName === "A") { node.setAttribute("target", "_blank"); node.setAttribute("rel", "noopener noreferrer"); }
+  });
+}
 
-let conversationHistory = [{ role: "system", content: systemPrompt }];
+function renderMarkdown(text) {
+  if (typeof marked === "undefined" || typeof DOMPurify === "undefined") {
+    return `<div style="white-space:pre-wrap">${esc(text)}</div>`; // safe fallback when CDN libs are unavailable
+  }
+  return DOMPurify.sanitize(marked.parse(text));
+}
 
+// Wrap every <pre> in a block with a language label and a "Copy code" button
+function wrapCodeBlocks(root) {
+  root.querySelectorAll("pre").forEach(pre => {
+    if (pre.parentElement && pre.parentElement.classList.contains("code-block")) return;
+    const codeEl = pre.querySelector("code");
+    const m = codeEl && /language-([\w+#.-]+)/.exec(codeEl.className || "");
+    const wrap = document.createElement("div");
+    wrap.className = "code-block";
+    const head = document.createElement("div");
+    head.className = "code-head";
+    const lang = document.createElement("span");
+    lang.className = "code-lang";
+    lang.textContent = m ? m[1] : "code";
+    const cb = document.createElement("button");
+    cb.type = "button";
+    cb.className = "code-copy-btn";
+    cb.textContent = "Copy code";
+    head.appendChild(lang);
+    head.appendChild(cb);
+    pre.parentNode.insertBefore(wrap, pre);
+    wrap.appendChild(head);
+    wrap.appendChild(pre);
+  });
+}
 
+// ---------- Image / video generation ----------
+const MEDIA_RE = /\[(IMAGE|VIDEO):\s*([^\]]+?)\s*\]/gi;
 
-          // --- WORK SPACE: ADD DIRECTLY BELOW "let conversationHistory = [...]" ---
+function extractMedia(text) {
+  const items = [];
+  const out = text.replace(MEDIA_RE, (m, kind, prompt) => {
+    items.push({ kind: kind.toUpperCase(), prompt: prompt.replace(/[*`#]/g, "").replace(/_/g, " ").trim() });
+    return `\n\nPALRHEAMEDIA${items.length - 1}END\n\n`;
+  });
+  return { out, items };
+}
 
-const INITIAL_CHAT_HTML = chat.innerHTML; 
-let activeSessionId = "session_" + Date.now();
-let chatSessions = {}; // Stores all multi-session instances
+function mediaCandidates(kind, prompt, seed) {
+  const enc = encodeURIComponent(prompt);
+  if (kind === "VIDEO") return videoModels.map(m => `${API_BASE}/image/${enc}?model=${encodeURIComponent(m)}${keyParam()}`);
+  const sel = modelSelect && modelSelect.value ? modelSelect.value : imageModels[0];
+  const models = [sel, ...imageModels.filter(m => m !== sel)].slice(0, 3);
+  const urls = models.map(m => `${API_BASE}/image/${enc}?model=${encodeURIComponent(m)}&width=1024&height=1024&nologo=true&seed=${seed}${keyParam()}`);
+  urls.push(`${LEGACY_IMAGE_BASE}${enc}?width=1024&height=1024&nologo=true&seed=${seed}`);
+  return urls;
+}
 
-// UI Slide Engine Toggles
+function buildMediaCard(kind, prompt) {
+  const seed = String(hashStr(prompt));
+  const card = document.createElement("div");
+  card.className = "media-card";
+  const frame = document.createElement("div");
+  frame.className = "media-frame" + (kind === "VIDEO" ? " video" : "");
+  const status = document.createElement("div");
+  status.className = "media-status";
+  status.textContent = kind === "VIDEO" ? "🎬 Generating video... this can take a minute" : "🎨 Generating image...";
+  frame.appendChild(status);
+
+  let el;
+  if (kind === "VIDEO") {
+    el = document.createElement("video");
+    el.controls = true; el.loop = true; el.muted = true; el.playsInline = true; el.preload = "auto";
+  } else {
+    el = document.createElement("img");
+    el.alt = prompt;
+  }
+  el.className = "media-el";
+  el.dataset.prompt = prompt;
+  el.dataset.seed = seed;
+  el.dataset.idx = "0";
+  el.src = mediaCandidates(kind, prompt, seed)[0];
+  frame.appendChild(el);
+
+  const cap = document.createElement("div");
+  cap.className = "media-caption";
+  cap.textContent = prompt;
+
+  const actions = document.createElement("div");
+  actions.className = "media-actions";
+  const dl = document.createElement("button");
+  dl.type = "button"; dl.className = "media-btn"; dl.dataset.action = "download"; dl.textContent = "⬇ Download";
+  const rg = document.createElement("button");
+  rg.type = "button"; rg.className = "media-btn"; rg.dataset.action = "regen"; rg.textContent = "🔄 Regenerate";
+  actions.appendChild(dl); actions.appendChild(rg);
+
+  card.appendChild(frame); card.appendChild(cap); card.appendChild(actions);
+  return card;
+}
+
+// Replace the placeholder paragraphs with real media cards (final render) or a simple note (while streaming)
+function injectMedia(root, items, live) {
+  root.querySelectorAll("p, div").forEach(p => {
+    const m = /^PALRHEAMEDIA(\d+)END$/.exec(p.textContent.trim());
+    if (!m || p.children.length > 1) return;
+    const item = items[Number(m[1])];
+    if (!item) return;
+    if (live) {
+      const note = document.createElement("p");
+      note.className = "media-pending";
+      note.textContent = item.kind === "VIDEO" ? "🎬 Preparing video..." : "🎨 Preparing image...";
+      p.replaceWith(note);
+    } else {
+      p.replaceWith(buildMediaCard(item.kind, item.prompt));
+    }
+  });
+}
+
+// Render text into a bubble. final=false while streaming.
+function renderInto(el, text, final) {
+  let t = text;
+  if (final) {
+    const up = t.toUpperCase();
+    const lastOpen = Math.max(up.lastIndexOf("[IMAGE:"), up.lastIndexOf("[VIDEO:"));
+    if (lastOpen > up.lastIndexOf("]")) t += "]";
+  } else {
+    t = t.replace(/\[(IMAGE|VIDEO):[^\]]*$/i, "");
+  }
+  const { out, items } = extractMedia(t);
+  el.innerHTML = renderMarkdown(out);
+  wrapCodeBlocks(el);
+  injectMedia(el, items, !final);
+}
+
+// Fallback chain when a generated image/video fails to load (works for restored chats too)
+chat.addEventListener("error", e => {
+  const el = e.target;
+  if (!el || !el.classList || !el.classList.contains("media-el")) return;
+  const kind = el.tagName === "VIDEO" ? "VIDEO" : "IMAGE";
+  const list = mediaCandidates(kind, el.dataset.prompt, el.dataset.seed);
+  const next = Number(el.dataset.idx) + 1;
+  if (next < list.length) {
+    el.dataset.idx = String(next);
+    el.src = list[next];
+  } else {
+    const frame = el.closest(".media-frame");
+    const status = frame && frame.querySelector(".media-status");
+    if (status) {
+      status.textContent = "⚠️ Could not generate this " + (kind === "VIDEO" ? "video" : "image") + ". The service may be busy or may need an API key (see ⚙ Settings). Tap Regenerate to retry.";
+      status.classList.add("failed");
+    }
+    el.style.display = "none";
+  }
+}, true);
+
+async function downloadMedia(el, kind) {
+  const src = el.currentSrc || el.src;
+  try {
+    const r = await fetch(src);
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const blob = await r.blob();
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "palrhea-" + Date.now() + (kind === "VIDEO" ? ".mp4" : ".jpg");
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  } catch (err) { window.open(src, "_blank"); }
+}
+
+// Populate model dropdown from the live service (falls back to a short built-in list)
+async function loadMediaModels() {
+  try {
+    const r = await fetch(API_BASE + "/image/models");
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const data = await r.json();
+    const list = (Array.isArray(data) ? data : data.models || []).map(x => (typeof x === "string" ? x : x.name || x.id)).filter(Boolean);
+    const isVideo = n => /veo|seedance|wan|ltx|video/i.test(n);
+    const img = list.filter(n => !isVideo(n)).slice(0, 12);
+    const vid = list.filter(isVideo);
+    if (img.length) imageModels = img;
+    if (vid.length) videoModels = vid.slice(0, 3);
+  } catch (e) { /* keep defaults */ }
+  const saved = (() => { try { return localStorage.getItem("palrhea_image_model"); } catch (e) { return null; } })();
+  modelSelect.innerHTML = "";
+  imageModels.forEach(m => { const o = document.createElement("option"); o.value = m; o.textContent = "🎨 " + m; modelSelect.appendChild(o); });
+  if (saved && imageModels.includes(saved)) modelSelect.value = saved;
+  modelSelect.addEventListener("change", () => { try { localStorage.setItem("palrhea_image_model", modelSelect.value); } catch (e) {} });
+}
+
+// ---------- Message DOM builders ----------
+function makeActions() {
+  const panel = document.createElement("div");
+  panel.className = "action-buttons";
+  panel.innerHTML = `<button type="button" class="speak-msg-btn" title="Read aloud">🔊</button>
+    <button type="button" class="copy-btn" title="Copy reply"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M9 18a2 2 0 0 1-1.425-.575A2 2 0 0 1 7 16V4q0-.825.575-1.4Q8.175 2 9 2h9q.825 0 1.4.6.6.575.6 1.4v12q0 .825-.6 1.425Q18.825 18 18 18zm0-2h9V4H9zm-4 6a2 2 0 0 1-1.425-.575A2 2 0 0 1 3 20V6h2v14h11v2zm4-6V4z"/></svg></button>`;
+  return panel;
+}
+
+function appendUserMessage(display, files) {
+  const w = document.createElement("div");
+  w.className = "msg-wrapper user";
+  const b = document.createElement("div");
+  b.className = "msg";
+  b.textContent = display;
+  if (files && files.length) {
+    const row = document.createElement("div");
+    row.className = "msg-files";
+    files.forEach(n => { const c = document.createElement("span"); c.className = "file-chip"; c.textContent = "📎 " + n; row.appendChild(c); });
+    b.appendChild(row);
+  }
+  w.appendChild(b);
+  chat.appendChild(w);
+  return w;
+}
+
+function appendAiMessage(text, final, raw) {
+  const w = document.createElement("div");
+  w.className = "msg-wrapper ai";
+  const b = document.createElement("div");
+  b.className = "msg";
+  if (raw === false) b.textContent = text; else renderInto(b, text, final);
+  w.appendChild(b);
+  if (final) { w._raw = text; w.appendChild(makeActions()); }
+  chat.appendChild(w);
+  return { wrapper: w, bubble: b };
+}
+
+// One delegated handler for every button inside the chat (also works after restoring a saved chat)
+chat.addEventListener("click", e => {
+  const t = e.target;
+  const wrapper = t.closest(".msg-wrapper");
+
+  const codeBtn = t.closest(".code-copy-btn");
+  if (codeBtn) {
+    const code = codeBtn.closest(".code-block").querySelector("pre");
+    copyText(code.innerText.replace(/\n$/, ""), codeBtn);
+    return;
+  }
+  const mediaBtn = t.closest(".media-btn");
+  if (mediaBtn) {
+    const card = mediaBtn.closest(".media-card");
+    const el = card.querySelector(".media-el");
+    const kind = el.tagName === "VIDEO" ? "VIDEO" : "IMAGE";
+    if (mediaBtn.dataset.action === "download") { downloadMedia(el, kind); return; }
+    const frame = card.querySelector(".media-frame");
+    const status = frame.querySelector(".media-status");
+    status.classList.remove("failed");
+    status.textContent = kind === "VIDEO" ? "🎬 Generating video... this can take a minute" : "🎨 Generating image...";
+    el.style.display = "";
+    el.dataset.seed = String(Math.floor(Math.random() * 1000000));
+    el.dataset.idx = "0";
+    el.src = mediaCandidates(kind, el.dataset.prompt, el.dataset.seed)[0];
+    return;
+  }
+  const speak = t.closest(".speak-msg-btn");
+  if (speak && wrapper) {
+    const clone = wrapper.querySelector(".msg").cloneNode(true);
+    clone.querySelectorAll(".code-block, .media-card").forEach(n => n.remove());
+    speakText(clone.textContent);
+    return;
+  }
+  const cp = t.closest(".copy-btn");
+  if (cp && wrapper) {
+    copyText(wrapper._raw || wrapper.dataset.raw || wrapper.querySelector(".msg").innerText, cp);
+  }
+});
+
+// ---------- Sessions ----------
 function toggleSidebar() {
-    document.getElementById("sidebar").classList.toggle("open");
-    document.getElementById("sidebarOverlay").classList.toggle("open");
+  document.getElementById("sidebar").classList.toggle("open");
+  document.getElementById("sidebarOverlay").classList.toggle("open");
 }
 
-// Commits runtime memory modifications to localstorage pipeline
-function syncSessionsToStorage() {
+function saveSessions() {
+  const write = () => {
     localStorage.setItem("palrhea_multi_sessions", JSON.stringify(chatSessions));
     localStorage.setItem("palrhea_active_session_id", activeSessionId);
-}
-
-// Re-creates lists inside sidebar markup engine 
-function renderSessionList() {
-    const listContainer = document.getElementById("sessionList");
-    listContainer.innerHTML = "";
-    
-    Object.keys(chatSessions).sort((a, b) => b.split('_')[1] - a.split('_')[1]).forEach(id => {
-        const session = chatSessions[id];
-        
-        const item = document.createElement("div");
-        item.className = `session-item ${id === activeSessionId ? 'active' : ''}`;
-        item.onclick = (e) => {
-            // Guard switch function if delete action gets targeted
-            if (e.target.classList.contains('session-delete-btn')) return;
-            switchSession(id);
-        };
-        
-        const titleSpan = document.createElement("span");
-        titleSpan.className = "session-title";
-        titleSpan.textContent = session.title || "Empty Conversation";
-        
-        const delBtn = document.createElement("button");
-        delBtn.className = "session-delete-btn";
-        delBtn.textContent = "🗑️";
-        delBtn.onclick = () => deleteSession(id);
-        
-        item.appendChild(titleSpan);
-        item.appendChild(delBtn);
-        listContainer.appendChild(item);
+  };
+  try { write(); return; } catch (e) { /* storage full - shrink file payloads of other chats */ }
+  Object.keys(chatSessions).filter(id => id !== activeSessionId).forEach(id => {
+    chatSessions[id].history.forEach(m => {
+      if (m.role === "user" && m.display != null) m.content = m.display + (m.files && m.files.length ? ` [files: ${m.files.join(", ")}]` : "");
     });
+  });
+  try { write(); } catch (e2) { console.warn("Could not save chat history (storage full).", e2); }
 }
 
-function initializeEngine() {
-    const storedSessions = localStorage.getItem("palrhea_multi_sessions");
-    const storedActiveId = localStorage.getItem("palrhea_active_session_id");
-    
-    if (storedSessions) {
-        chatSessions = JSON.parse(storedSessions);
-        activeSessionId = storedActiveId || Object.keys(chatSessions)[0];
-        
-        // Restore active chat turn state metrics
-        conversationHistory = chatSessions[activeSessionId].history;
-        chat.innerHTML = chatSessions[activeSessionId].markup;
-    } else {
-        // Safe baseline boot profile parameters
-        chatSessions[activeSessionId] = {
-            title: "First Conversation",
-            history: [...conversationHistory],
-            markup: INITIAL_CHAT_HTML
-        };
-        syncSessionsToStorage();
-    }
-    renderSessionList();
+function renderSessionList() {
+  const list = document.getElementById("sessionList");
+  list.innerHTML = "";
+  Object.keys(chatSessions).sort((a, b) => numId(b) - numId(a)).forEach(id => {
+    const item = document.createElement("div");
+    item.className = "session-item" + (id === activeSessionId ? " active" : "");
+    item.onclick = () => switchSession(id);
+    const title = document.createElement("span");
+    title.className = "session-title";
+    title.textContent = chatSessions[id].title || "Empty Conversation";
+    const del = document.createElement("button");
+    del.className = "session-delete-btn";
+    del.textContent = "🗑️";
+    del.onclick = ev => { ev.stopPropagation(); deleteSession(id); };
+    item.appendChild(title); item.appendChild(del);
+    list.appendChild(item);
+  });
 }
+
+function deriveDisplay(m) {
+  if (m.display != null) return m.display;
+  const c = m.content || "";
+  const i = c.lastIndexOf(USER_Q_TAG);
+  if (i >= 0) return c.slice(i + USER_Q_TAG.length);
+  if (/^\[Attached/.test(c)) return "Analyze file contents.";
+  return c;
+}
+
+function renderHistory() {
+  chat.innerHTML = "";
+  appendAiMessage(GREETING, true, true);
+  conversationHistory.forEach(m => {
+    if (m.role === "user") appendUserMessage(deriveDisplay(m), m.files);
+    else if (m.role === "assistant") appendAiMessage(m.content, true);
+  });
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function loadSession(id) {
+  activeSessionId = id;
+  const s = chatSessions[id];
+  if (!Array.isArray(s.history) || !s.history.length || s.history[0].role !== "system") s.history = [{ role: "system", content: systemPrompt }, ...(s.history || [])];
+  s.history[0].content = systemPrompt; // older chats pick up the newest rules
+  delete s.markup;
+  conversationHistory = s.history;
+  renderHistory();
+}
+
+function newSessionObject() { return { title: "New Conversation", history: [{ role: "system", content: systemPrompt }] }; }
 
 function createNewSession() {
-    const newId = "session_" + Date.now();
-    chatSessions[newId] = {
-        title: "New Conversation",
-        history: [{ role: "system", content: systemPrompt }],
-        markup: INITIAL_CHAT_HTML
-    };
-    activeSessionId = newId;
-    conversationHistory = chatSessions[newId].history;
-    chat.innerHTML = chatSessions[newId].markup;
-    
-    syncSessionsToStorage();
-    renderSessionList();
-    toggleSidebar(); // Close sidebar menu context automatically
-    box.focus();
+  if (isBusy) return;
+  const id = "session_" + Date.now();
+  chatSessions[id] = newSessionObject();
+  loadSession(id);
+  saveSessions(); renderSessionList(); toggleSidebar(); box.focus();
 }
 
 function switchSession(id) {
-    if (id === activeSessionId) return;
-    activeSessionId = id;
-    conversationHistory = chatSessions[id].history;
-    chat.innerHTML = chatSessions[id].markup;
-    
-    syncSessionsToStorage();
-    renderSessionList();
-    toggleSidebar();
-    chat.scrollTop = chat.scrollHeight;
-    box.focus();
+  if (isBusy || id === activeSessionId || !chatSessions[id]) return;
+  loadSession(id);
+  saveSessions(); renderSessionList(); toggleSidebar(); box.focus();
 }
 
 function deleteSession(id) {
-    if (!confirm("Delete this conversation permanently?")) return;
-    
-    delete chatSessions[id];
-    const remainingIds = Object.keys(chatSessions);
-    
-    if (remainingIds.length === 0) {
-        // Auto fallback generation loop guard
-        activeSessionId = "session_" + Date.now();
-        chatSessions[activeSessionId] = {
-            title: "New Conversation",
-            history: [{ role: "system", content: systemPrompt }],
-            markup: INITIAL_CHAT_HTML
-        };
-    } else if (id === activeSessionId) {
-        activeSessionId = remainingIds[0];
+  if (isBusy) return;
+  if (!confirm("Delete this conversation permanently?")) return;
+  delete chatSessions[id];
+  const rest = Object.keys(chatSessions);
+  if (!rest.length) {
+    const nid = "session_" + Date.now();
+    chatSessions[nid] = newSessionObject();
+    loadSession(nid);
+  } else if (id === activeSessionId) {
+    loadSession(rest.sort((a, b) => numId(b) - numId(a))[0]);
+  }
+  saveSessions(); renderSessionList();
+}
+
+function updateCurrentSessionState(titleHint) {
+  const s = chatSessions[activeSessionId];
+  if (!s) return;
+  if ((s.title === "New Conversation" || s.title === "First Conversation") && titleHint) {
+    s.title = titleHint.substring(0, 24) + (titleHint.length > 24 ? "..." : "");
+  }
+  s.history = conversationHistory;
+  saveSessions();
+  renderSessionList();
+}
+
+function initializeEngine() {
+  let stored = null;
+  try { stored = JSON.parse(localStorage.getItem("palrhea_multi_sessions") || "null"); } catch (e) {}
+  if (stored && typeof stored === "object" && Object.keys(stored).length) {
+    chatSessions = stored;
+    const savedId = localStorage.getItem("palrhea_active_session_id");
+    loadSession(chatSessions[savedId] ? savedId : Object.keys(chatSessions).sort((a, b) => numId(b) - numId(a))[0]);
+  } else {
+    chatSessions[activeSessionId] = { title: "First Conversation", history: conversationHistory };
+    loadSession(activeSessionId);
+    saveSessions();
+  }
+  renderSessionList();
+}
+
+// ---------- File reading ----------
+const TEXT_EXT = /\.(txt|md|markdown|json|jsonl|js|mjs|ts|jsx|tsx|css|scss|html?|xml|csv|tsv|py|java|c|cc|cpp|h|hpp|cs|go|rs|php|rb|sh|bash|bat|ps1|yml|yaml|ini|toml|cfg|conf|sql|log|svg|rtf|tex|kt|swift|lua|r|dart|vue|svelte|env|gitignore)$/i;
+
+function looksLikeText(u8) {
+  const n = Math.min(u8.length, 4096);
+  if (!n) return true;
+  if ((u8[0] === 0xFF && u8[1] === 0xFE) || (u8[0] === 0xFE && u8[1] === 0xFF)) return true; // UTF-16 BOM
+  let bad = 0;
+  for (let i = 0; i < n; i++) { const b = u8[i]; if (b === 0) return false; if (b < 9 || (b > 13 && b < 32)) bad++; }
+  return bad / n < 0.02;
+}
+function decodeText(u8) {
+  if (u8[0] === 0xFF && u8[1] === 0xFE) return new TextDecoder("utf-16le").decode(u8);
+  if (u8[0] === 0xFE && u8[1] === 0xFF) return new TextDecoder("utf-16be").decode(u8);
+  return new TextDecoder("utf-8").decode(u8);
+}
+function once(target, okEvt, ms) {
+  return new Promise((res, rej) => {
+    const t = setTimeout(() => { cleanup(); rej(new Error("timeout")); }, ms || 8000);
+    const ok = () => { cleanup(); res(); };
+    const bad = () => { cleanup(); rej(new Error("media error")); };
+    function cleanup() { clearTimeout(t); target.removeEventListener(okEvt, ok); target.removeEventListener("error", bad); }
+    target.addEventListener(okEvt, ok); target.addEventListener("error", bad);
+  });
+}
+function canvasToJpeg(source, w, h, max) {
+  const s = Math.min(1, max / Math.max(w, h));
+  const c = document.createElement("canvas");
+  c.width = Math.max(1, Math.round(w * s)); c.height = Math.max(1, Math.round(h * s));
+  const ctx = c.getContext("2d");
+  ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, c.width, c.height);
+  ctx.drawImage(source, 0, 0, c.width, c.height);
+  return c.toDataURL("image/jpeg", 0.85);
+}
+async function imageToDataUrl(file) {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = new Image();
+    img.src = url;
+    await once(img, "load", 10000);
+    return { dataUrl: canvasToJpeg(img, img.naturalWidth, img.naturalHeight, 1280), w: img.naturalWidth, h: img.naturalHeight };
+  } finally { URL.revokeObjectURL(url); }
+}
+async function readVideo(file) {
+  const url = URL.createObjectURL(file);
+  const info = { duration: 0, w: 0, h: 0, frames: [] };
+  try {
+    const v = document.createElement("video");
+    v.preload = "metadata"; v.muted = true; v.playsInline = true; v.src = url;
+    await once(v, "loadedmetadata", 10000);
+    info.duration = v.duration; info.w = v.videoWidth; info.h = v.videoHeight;
+    if (isFinite(v.duration) && v.duration > 0 && v.videoWidth) {
+      for (const f of [0.1, 0.5, 0.9]) {
+        v.currentTime = v.duration * f;
+        await once(v, "seeked", 8000);
+        info.frames.push(canvasToJpeg(v, v.videoWidth, v.videoHeight, 960));
+      }
     }
-    
-    conversationHistory = chatSessions[activeSessionId].history;
-    chat.innerHTML = chatSessions[activeSessionId].markup;
-    
-    syncSessionsToStorage();
-    renderSessionList();
+  } catch (e) { /* metadata only */ } finally { URL.revokeObjectURL(url); }
+  return info;
 }
-
-// Hook session pipeline changes onto runtime save tasks
-function updateCurrentSessionState() {
-    if (!chatSessions[activeSessionId]) return;
-    
-    // Automatically extract the first user string context if the default title remains
-    if (chatSessions[activeSessionId].title === "New Conversation" || chatSessions[activeSessionId].title === "First Conversation") {
-        const firstUserMessage = conversationHistory.find(m => m.role === "user");
-        if (firstUserMessage) {
-            let cleanTitle = firstUserMessage.content.replace(/\[Attached[\s\S]*?\]\n*/g, ""); // strip binary payload hooks from menu text
-            chatSessions[activeSessionId].title = cleanTitle.substring(0, 24) + (cleanTitle.length > 24 ? "..." : "");
-        }
+async function readAudioMeta(file) {
+  const url = URL.createObjectURL(file);
+  try { const a = new Audio(); a.preload = "metadata"; a.src = url; await once(a, "loadedmetadata", 8000); return a.duration; }
+  catch (e) { return NaN; } finally { URL.revokeObjectURL(url); }
+}
+function xmlToText(xml) {
+  return xml.replace(/<w:tab\/>/g, "\t").replace(/<\/w:p>|<w:br\/>|<\/text:p>|<\/text:h>|<\/a:p>|<\/p>|<br\s*\/?>/gi, "\n")
+    .replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&apos;|&#39;/g, "'").replace(/&amp;/g, "&")
+    .replace(/\n{3,}/g, "\n\n").trim();
+}
+async function readOfficeZip(buf, ext) {
+  if (typeof JSZip === "undefined") throw new Error("ZIP reader not loaded (offline?)");
+  const zip = await JSZip.loadAsync(buf);
+  const names = Object.keys(zip.files);
+  if (ext === "docx") { const f = zip.file("word/document.xml"); if (!f) throw new Error("not a docx"); return xmlToText(await f.async("string")); }
+  if (ext === "pptx") {
+    const slides = names.filter(n => /^ppt\/slides\/slide\d+\.xml$/.test(n)).sort((a, b) => parseInt(a.match(/\d+/)[0]) - parseInt(b.match(/\d+/)[0]));
+    let out = "";
+    for (let i = 0; i < slides.length; i++) out += `\n--- Slide ${i + 1} ---\n` + xmlToText(await zip.file(slides[i]).async("string")) + "\n";
+    return out;
+  }
+  if (["odt", "odp"].includes(ext)) { const f = zip.file("content.xml"); if (!f) throw new Error("not an OpenDocument file"); return xmlToText(await f.async("string")); }
+  if (ext === "epub") {
+    let out = "";
+    for (const n of names.filter(n => /\.(xhtml|html|htm)$/i.test(n))) { out += xmlToText(await zip.file(n).async("string")) + "\n\n"; if (out.length > MAX_FILE_CHARS) break; }
+    return out;
+  }
+  return "";
+}
+async function readArchive(buf) {
+  if (typeof JSZip === "undefined") throw new Error("ZIP reader not loaded (offline?)");
+  const zip = await JSZip.loadAsync(buf);
+  const entries = Object.values(zip.files).filter(f => !f.dir);
+  let out = `Archive contains ${entries.length} file(s):\n` + entries.slice(0, 200).map(f => " - " + f.name).join("\n");
+  if (entries.length > 200) out += `\n ... and ${entries.length - 200} more`;
+  let budget = 40000, shown = 0;
+  for (const f of entries) {
+    if (shown >= 30 || budget <= 0) break;
+    if (!TEXT_EXT.test(f.name)) continue;
+    const text = await f.async("string");
+    const part = clip(text, Math.min(budget, 8000));
+    out += `\n\n=== ${f.name} ===\n${part}`;
+    budget -= part.length; shown++;
+  }
+  return out;
+}
+async function readPdf(file) {
+  if (typeof pdfjsLib === "undefined") throw new Error("PDF reader not loaded (offline?)");
+  const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
+  let text = "";
+  for (let i = 1; i <= pdf.numPages && text.length < MAX_FILE_CHARS; i++) {
+    const page = await pdf.getPage(i);
+    const tc = await page.getTextContent();
+    text += `\n--- Page ${i} ---\n` + tc.items.map(x => x.str).join(" ") + "\n";
+  }
+  const images = [];
+  if (text.replace(/--- Page \d+ ---|\s/g, "").length < 100) { // scanned PDF: send page images instead
+    const n = Math.min(pdf.numPages, 3);
+    for (let i = 1; i <= n; i++) {
+      const page = await pdf.getPage(i);
+      const vp = page.getViewport({ scale: 1.5 });
+      const c = document.createElement("canvas");
+      c.width = vp.width; c.height = vp.height;
+      await page.render({ canvasContext: c.getContext("2d"), viewport: vp }).promise;
+      images.push(c.toDataURL("image/jpeg", 0.85));
     }
-    
-    chatSessions[activeSessionId].history = conversationHistory;
-    chatSessions[activeSessionId].markup = chat.innerHTML;
-    syncSessionsToStorage();
-    renderSessionList();
+  }
+  return { text, pages: pdf.numPages, images };
 }
 
-// Launch storage execution loops on setup tracking maps
-initializeEngine();
+// Reads ONE file of any kind -> { name, text, images }
+async function processFile(file) {
+  const name = file.name;
+  const ext = (name.split(".").pop() || "").toLowerCase();
+  const mime = file.type || "";
+  const head = `[Attached file: ${name} | ${mime || "unknown type"} | ${fmtSize(file.size)}]`;
+  const out = { name, text: head, images: [] };
 
+  // Images (SVG is handled as text below)
+  if (mime.startsWith("image/") && mime !== "image/svg+xml") {
+    try {
+      const r = await imageToDataUrl(file);
+      out.images.push(r.dataUrl);
+      out.text = `${head}\nThis is an image (${r.w}x${r.h}px). It is attached and visible to you.`;
+    } catch (e) { out.text = `${head}\nThis image format could not be decoded by the browser (for example HEIC/RAW), so only its metadata is available.`; }
+    return out;
+  }
+  // Video
+  if (mime.startsWith("video/")) {
+    const v = await readVideo(file);
+    out.images = v.frames;
+    out.text = `${head}\nVideo: ${isFinite(v.duration) ? v.duration.toFixed(1) + "s" : "unknown length"}, ${v.w}x${v.h}px.\n` +
+      (v.frames.length ? `${v.frames.length} still frames (at 10%, 50% and 90% of the video) are attached and visible to you. The soundtrack cannot be analysed in the browser.` : "Frames could not be extracted; only metadata is available.");
+    return out;
+  }
+  // Audio
+  if (mime.startsWith("audio/")) {
+    const d = await readAudioMeta(file);
+    out.text = `${head}\nAudio file${isFinite(d) ? `, duration ${d.toFixed(1)}s` : ""}. The audio itself cannot be transcribed in the browser, so only metadata is available. If the user needs a transcript, suggest pasting it or using a speech-to-text tool.`;
+    return out;
+  }
+  if (file.size > MAX_READ_BYTES) { out.text = `${head}\nFile is larger than ${fmtSize(MAX_READ_BYTES)}, so its contents were not read.`; return out; }
 
-if (typeof marked !== 'undefined') {
-    marked.setOptions({ gfm: true, breaks: true });
+  // PDF
+  if (ext === "pdf" || mime === "application/pdf") {
+    const r = await readPdf(file);
+    out.images = r.images;
+    out.text = `[Attached PDF: ${name} | ${r.pages} page(s)]` + (r.images.length ? `\nNo selectable text was found (scanned PDF). The first ${r.images.length} page(s) are attached as images.` : "") + "\n" + r.text;
+    return out;
+  }
+  // Spreadsheets (csv/tsv are read as plain text below)
+  if (["xlsx", "xls", "xlsm", "xlsb", "ods"].includes(ext)) {
+    if (typeof XLSX === "undefined") throw new Error("Spreadsheet reader not loaded (offline?)");
+    const wb = XLSX.read(new Uint8Array(await file.arrayBuffer()), { type: "array" });
+    let t = `[Attached spreadsheet: ${name} | ${wb.SheetNames.length} sheet(s)]`;
+    wb.SheetNames.forEach(n => { t += `\n\n[Sheet: ${n}]\n` + XLSX.utils.sheet_to_csv(wb.Sheets[n]); });
+    out.text = t;
+    return out;
+  }
+  // Office / ebook formats that are ZIP containers
+  if (["docx", "pptx", "odt", "odp", "epub"].includes(ext)) {
+    const t = await readOfficeZip(await file.arrayBuffer(), ext);
+    out.text = `[Attached ${ext.toUpperCase()} document: ${name}]\n${t}`;
+    return out;
+  }
+  if (["zip", "jar", "apk"].includes(ext) || mime === "application/zip") {
+    out.text = `[Attached archive: ${name}]\n` + await readArchive(await file.arrayBuffer());
+    return out;
+  }
+  // Plain text of any kind (by extension or by content)
+  const u8 = new Uint8Array(await file.arrayBuffer());
+  if (TEXT_EXT.test(name) || mime.startsWith("text/") || looksLikeText(u8)) {
+    out.text = `[Attached text file: ${name}]\n\n` + decodeText(u8);
+    return out;
+  }
+  // Unknown binary: magic bytes + readable strings
+  const magic = Array.from(u8.slice(0, 32)).map(b => b.toString(16).padStart(2, "0")).join(" ");
+  const strings = (Array.from(u8.slice(0, 2000000)).map(b => (b >= 32 && b < 127 ? String.fromCharCode(b) : "\n")).join("").match(/[ -~]{6,}/g) || []).slice(0, 150).join("\n");
+  out.text = `${head}\nThis is a binary format that cannot be parsed in the browser. First bytes (hex): ${magic}\n` + (strings ? `\nReadable strings found inside:\n${strings}` : "\nNo readable strings were found.");
+  return out;
 }
 
+function renderAttachBar() {
+  attachBar.innerHTML = "";
+  attachments.forEach((a, i) => {
+    const chip = document.createElement("span");
+    chip.className = "attach-chip";
+    chip.textContent = "📎 " + a.name + (a.images.length ? ` (${a.images.length} img)` : "") + " ";
+    const x = document.createElement("button");
+    x.type = "button"; x.className = "attach-x"; x.textContent = "✕"; x.setAttribute("aria-label", "Remove " + a.name);
+    x.onclick = () => { attachments.splice(i, 1); renderAttachBar(); resetMicButton(); };
+    chip.appendChild(x);
+    attachBar.appendChild(chip);
+  });
+  attachBar.style.display = attachments.length ? "flex" : "none";
+}
 
-let attachedFileContent = "";
-// Add these 2 lines right above your handleFileSelect function to handle PDFs/Excel
-if (typeof pdfjsLib !== 'undefined') pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
-
-function handleFileSelect(input) {
-    const file = input.files[0];
-    if (!file) return;
-
-    box.disabled = true;
-    btn.disabled = true;
-    box.placeholder = `⌛ Processing ${file.name}...`;
-
-    const ext = file.name.split('.').pop().toLowerCase();
-
-    // 1. Spreadsheet Data Extraction (Excel, CSV)
-    if (['xlsx', 'xls', 'csv'].includes(ext)) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const data = new Uint8Array(e.target.result);
-                const workbook = XLSX.read(data, { type: 'array' });
-                let parsedData = `[Attached Sheet Dataset: ${file.name}]\n`;
-                workbook.SheetNames.forEach(name => {
-                    parsedData += `\n[Sheet: ${name}]\n` + XLSX.utils.sheet_to_txt(workbook.Sheets[name]);
-                });
-                finalizeFileLoad(file.name, parsedData);
-            } catch (err) { parseAsHexDumpFallback(file); }
-        };
-        reader.readAsArrayBuffer(file);
-    } 
-    // 2. Document Text Extraction (PDF)
-    else if (ext === 'pdf') {
-        const reader = new FileReader();
-        reader.onload = async function(e) {
-            try {
-                const typedarray = new Uint8Array(e.target.result);
-                const pdf = await pdfjsLib.getDocument(typedarray).promise;
-                let textAccumulator = `[Attached PDF Document: ${file.name}]\n`;
-                for (let i = 1; i <= pdf.numPages; i++) {
-                    const page = await pdf.getPage(i);
-                    const textContext = await page.getTextContent();
-                    textAccumulator += `\n--- Page ${i} ---\n` + textContext.items.map(item => item.str).join(" ") + "\n";
-                }
-                finalizeFileLoad(file.name, textAccumulator);
-            } catch (err) { parseAsHexDumpFallback(file); }
-        };
-        reader.readAsArrayBuffer(file);
-    } 
-    // 3. Known Plain Text Formats
-    else if (['txt', 'md', 'html', 'css', 'js', 'json', 'xml', 'py', 'java', 'c', 'cpp', 'sh', 'yaml', 'ini'].includes(ext) || file.type.startsWith('text/')) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            finalizeFileLoad(file.name, `[Attached Content File: ${file.name}]\n\n${e.target.result}`);
-        };
-        reader.readAsText(file);
-    } 
-    // 4. Absolute Fallback for Anything Else (Images, Media, unknown binaries)
-    else {
-        parseAsHexDumpFallback(file);
+async function handleFileSelect(input) {
+  const files = Array.from(input.files || []);
+  if (!files.length) return;
+  isBusy = true; box.disabled = true; btn.disabled = true;
+  try {
+    for (const file of files) {
+      box.placeholder = `⌛ Reading ${file.name}...`;
+      let a;
+      try { a = await processFile(file); }
+      catch (err) { a = { name: file.name, text: `[Attached file: ${file.name}]\nThe file could not be read: ${err.message}.`, images: [] }; }
+      const used = attachments.reduce((n, x) => n + x.text.length, 0);
+      const room = MAX_TOTAL_FILE_CHARS - used;
+      a.text = room < 500 ? `[Attached file: ${file.name}]\n[Skipped: the attachment size limit for one message was reached.]` : clip(a.text, Math.min(MAX_FILE_CHARS, room));
+      const imgRoom = MAX_IMAGES - attachments.reduce((n, x) => n + x.images.length, 0);
+      a.images = a.images.slice(0, Math.max(0, imgRoom));
+      attachments.push(a);
+      renderAttachBar();
     }
-}
-
-// Global safety valve to handle binary file variants safely without breaking
-function parseAsHexDumpFallback(file) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const buffer = e.target.result;
-        const uint8 = new Uint8Array(buffer);
-        let hexDump = `[Binary File Structural Metadata Dump: ${file.name}]\n`;
-        hexDump += `MIME Type: ${file.type || 'unknown'}\n`;
-        hexDump += `Byte Dimension: ${file.size} bytes\n\n`;
-        
-        const maxBytesToDump = Math.min(uint8.length, 12000); 
-        let currentLine = "";
-        
-        for (let i = 0; i < maxBytesToDump; i++) {
-            if (i % 16 === 0) {
-                if (currentLine) hexDump += currentLine + "\n";
-                hexDump += i.toString(16).padStart(8, '0') + ": ";
-                currentLine = "";
-            }
-            hexDump += uint8[i].toString(16).padStart(2, '0') + " ";
-        }
-        if (currentLine) hexDump += currentLine + "\n";
-        if (uint8.length > maxBytesToDump) {
-            hexDump += `\n[... Truncated due to size. Remaining data: ${uint8.length - maxBytesToDump} bytes ...]`;
-        }
-        finalizeFileLoad(file.name, hexDump);
-    };
-    reader.readAsArrayBuffer(file);
-}
-
-// Clean UI interface wrapper
-function finalizeFileLoad(fileName, dataContent) {
-    attachedFileContent = dataContent;
-    box.disabled = false;
-    btn.disabled = false;
-    box.placeholder = `📄 Loaded: ${fileName}. Type your prompt...`;
+  } finally {
+    input.value = "";
+    isBusy = false; box.disabled = false; btn.disabled = false;
+    resetMicButton();
     box.focus();
+  }
 }
 
+// ---------- Sending (built for weak connections) ----------
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+function withTimeout(promise, ms, makeErr) {
+  let t;
+  const timer = new Promise((_, rej) => { t = setTimeout(() => rej(makeErr()), ms); });
+  return Promise.race([promise, timer]).finally(() => clearTimeout(t));
+}
+class NetError extends Error {
+  constructor(msg, status, partial) { super(msg); this.status = status || 0; this.partial = partial || ""; }
+}
+const isAuthStatus = s => s === 401 || s === 402 || s === 403;
+const isPermanentStatus = s => s === 400 || s === 404 || s === 405 || s === 410 || s === 415 || s === 422;
+function waitOnline(ms) {
+  return new Promise(res => {
+    if (navigator.onLine !== false) return res();
+    const done = () => { clearTimeout(t); window.removeEventListener("online", done); res(); };
+    const t = setTimeout(done, ms);
+    window.addEventListener("online", done);
+  });
+}
 
+let lastImages = [];
+
+// compact=true: shorter history and fewer/lighter payloads, used on the final retry round
+function buildRequestMessages(images, compact) {
+  let msgs = conversationHistory.map(m => ({ role: m.role, content: m.content }));
+  if (compact) {
+    const sys = msgs[0];
+    msgs = [sys, ...msgs.slice(1).slice(-4)].map(m => ({ role: m.role, content: clip(m.content, 12000) }));
+  }
+  const limit = compact ? 30000 : MAX_REQUEST_CHARS;
+  let total = msgs.reduce((n, m) => n + m.content.length, 0);
+  while (total > limit && msgs.length > 2) { total -= msgs[1].content.length; msgs.splice(1, 1); } // drop oldest turns
+  const imgs = compact ? images.slice(0, 2) : images;
+  if (imgs.length) {
+    const last = msgs[msgs.length - 1];
+    last.content = [{ type: "text", text: last.content }, ...imgs.map(u => ({ type: "image_url", image_url: { url: u } }))];
+  }
+  return msgs;
+}
+
+// Ordered list of places to try. Keyless free endpoints first, a user-defined one before them if set.
+function buildAttempts(hasImages, plainPrompt) {
+  const list = [];
+  const c = getCustom();
+  const pk = getApiKey();
+  if (c.url && c.model) list.push({ kind: "chat", label: "your endpoint", url: normalizeChatUrl(c.url), model: c.model, key: c.key });
+  const v1 = m => ({ kind: "chat", label: "free", url: CHAT_ENDPOINT, model: m, key: pk });
+  const legacy = m => ({ kind: "chat", label: "free-2", url: LEGACY_TEXT_ENDPOINT, model: m, key: pk });
+  const gen = m => ({ kind: "chat", label: "gateway", url: API_BASE + "/v1/chat/completions", model: m, key: pk });
+  if (hasImages) {
+    list.push(v1("openai"), legacy("openai"), gen("openai"), v1("gemini"));
+  } else {
+    list.push(v1("openai"), v1("qwen"), legacy("openai-fast"), legacy("openai"), gen("openai"));
+    extraTextModels.forEach(m => list.push(v1(m)));
+    if (plainPrompt && plainPrompt.length <= 1500) list.push({ kind: "get", label: "simple", prompt: plainPrompt });
+  }
+  return list;
+}
+
+async function fetchWithTimeout(url, opts, ms) {
+  const ctl = new AbortController();
+  const t = setTimeout(() => ctl.abort(), ms);
+  try { return await fetch(url, { ...(opts || {}), signal: ctl.signal }); } finally { clearTimeout(t); }
+}
+
+async function loadTextModels() {
+  try {
+    const r = await fetchWithTimeout(MODELS_ENDPOINT, {}, 8000);
+    if (!r.ok) return;
+    const d = await r.json();
+    const names = (Array.isArray(d) ? d : []).map(x => (typeof x === "string" ? x : x && (x.name || x.id))).filter(Boolean);
+    extraTextModels = names.filter(n => !/^(openai|openai-fast)$/.test(n) && !/audio|tts|whisper|image|video|roblox|search|unity|evil|midijourney|rtist/i.test(n)).slice(0, 3);
+  } catch (e) { /* optional */ }
+}
+
+// Reads a streamed (SSE) or plain JSON reply. A stalled connection raises NetError with whatever text arrived so far.
+async function readReply(res, onText) {
+  const type = res.headers.get("content-type") || "";
+  if (type.includes("application/json") || !res.body || !res.body.getReader) {
+    const raw = await withTimeout(res.text(), 40000, () => new NetError("response stalled", 0));
+    let t = raw;
+    try {
+      const j = JSON.parse(raw);
+      if (j.error) throw new NetError((j.error.message || "service error"), 0);
+      t = (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) || "";
+    } catch (e) { if (e instanceof NetError) throw e; }
+    onText(t);
+    return t;
+  }
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder("utf-8");
+  let full = "", buffer = "", rawAll = "", first = true;
+  try {
+    while (true) {
+      const { value, done } = await withTimeout(reader.read(), first ? 60000 : 30000, () => new NetError("connection stalled", 0));
+      if (done) break;
+      first = false;
+      const piece = decoder.decode(value, { stream: true });
+      if (rawAll.length < 200000) rawAll += piece;
+      buffer += piece;
+      const lines = buffer.split("\n");
+      buffer = lines.pop();
+      for (const raw of lines) {
+        const line = raw.trim();
+        if (!line.startsWith("data:")) continue;
+        const payload = line.slice(5).trim();
+        if (!payload || payload === "[DONE]") continue;
+        let parsed;
+        try { parsed = JSON.parse(payload); } catch (e) { continue; }
+        if (parsed.error) throw new NetError(parsed.error.message || "The AI service returned an error.", 0);
+        const chunk = parsed.choices && parsed.choices[0] && parsed.choices[0].delta && parsed.choices[0].delta.content;
+        if (chunk) { full += chunk; onText(full); }
+      }
+    }
+  } catch (err) {
+    try { reader.cancel(); } catch (e) {}
+    const ne = err instanceof NetError ? err : new NetError(err.message || "connection lost", 0);
+    ne.partial = full;
+    throw ne;
+  }
+  if (!full) { // some servers ignore stream:true and send one JSON document
+    try { const j = JSON.parse(rawAll); full = (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) || ""; if (full) onText(full); } catch (e) {}
+  }
+  return full;
+}
+
+async function runAttempt(a, messages, onText, streaming) {
+  if (a.kind === "get") {
+    const url = SIMPLE_TEXT_ENDPOINT + encodeURIComponent(a.prompt) + "?system=" + encodeURIComponent("You are PALRHEA AI, a concise assistant. Put code in fenced Markdown code blocks with a language tag.");
+    const res = await fetchWithTimeout(url, {}, 30000);
+    if (!res.ok) throw new NetError("HTTP " + res.status, res.status);
+    const t = await withTimeout(res.text(), 40000, () => new NetError("response stalled", 0));
+    onText(t);
+    return t;
+  }
+  const headers = { "Content-Type": "application/json" };
+  if (a.key) headers["Authorization"] = "Bearer " + a.key;
+  const res = await fetchWithTimeout(a.url, { method: "POST", headers, body: JSON.stringify({ model: a.model, messages, stream: streaming }) }, 40000);
+  if (!res.ok) throw new NetError("HTTP " + res.status, res.status);
+  return readReply(res, onText);
+}
+
+function failureMessage(authSeen, lastErr) {
+  if (navigator.onLine === false) return "You appear to be offline. Reconnect, then tap Retry.";
+  if (authSeen) return "The free AI endpoints refused the request (a key may be needed, or they are rate-limited). Tap Retry, or add your own key or a backup endpoint in ⚙ Settings.";
+  return "Could not get a reply. The connection looks weak or the AI service is busy. Tap Retry." + (lastErr && lastErr.message ? ` (Last error: ${lastErr.message})` : "");
+}
+
+async function generateReply(images) {
+  isBusy = true; box.disabled = true; btn.disabled = true;
+
+  const aiWrapper = document.createElement("div");
+  aiWrapper.className = "msg-wrapper ai";
+  const aiBubble = document.createElement("div");
+  aiBubble.className = "msg thinking";
+  aiBubble.textContent = "Connecting...";
+  aiWrapper.appendChild(aiBubble);
+  chat.appendChild(aiWrapper);
+  chat.scrollTop = chat.scrollHeight;
+  const setStatus = msg => { if (aiBubble.classList.contains("thinking")) aiBubble.textContent = msg; };
+
+  let latest = "", pending = false, finished = false;
+  const paint = () => { pending = false; if (finished) return; aiBubble.classList.remove("thinking"); renderInto(aiBubble, latest, false); chat.scrollTop = chat.scrollHeight; };
+  const onText = t => { latest = t; if (!pending) { pending = true; setTimeout(paint, 120); } };
+
+  const lastUser = conversationHistory[conversationHistory.length - 1];
+  const attempts = buildAttempts(images.length > 0, lastUser ? (lastUser.display != null ? lastUser.display : lastUser.content) : "");
+  const dead = new Set();
+  let result = null, incomplete = false, lastErr = null, authSeen = false;
+
+  try {
+    for (let round = 0; round < 3 && result === null; round++) {
+      if (round > 0) { setStatus(`Weak or unstable connection - retrying (${round}/2)...`); await sleep(round * 1500); }
+      if (navigator.onLine === false) { setStatus("You appear to be offline - waiting for a connection..."); await waitOnline(20000); }
+      const messages = buildRequestMessages(images, round === 2);
+      let transient = false;
+
+      for (const a of attempts) {
+        if (dead.has(a)) continue;
+        setStatus(a.kind === "get" ? "Trying a simpler connection..." : `Connecting (${a.label}: ${a.model})...`);
+        for (const streaming of (a.kind === "get" ? [false] : [true, false])) {
+          try {
+            const t = await runAttempt(a, messages, onText, streaming);
+            if (t && t.trim()) { result = t; break; }
+            throw new NetError("empty reply", 0);
+          } catch (err) {
+            lastErr = err;
+            if (err.partial && err.partial.trim()) { result = err.partial; incomplete = true; break; }
+            const st = err.status || 0;
+            if (isAuthStatus(st)) { authSeen = true; dead.add(a); break; }
+            if (isPermanentStatus(st)) { dead.add(a); break; }
+            transient = true;
+            if (st > 0) break;      // 429 / 5xx: go to the next endpoint
+            /* network error, stall or empty reply: retry this endpoint once without streaming */
+          }
+        }
+        if (result !== null) break;
+      }
+      if (result === null && !transient) break; // every endpoint is permanently unusable
+    }
+
+    if (result === null) throw new Error(failureMessage(authSeen, lastErr));
+
+    finished = true;
+    aiBubble.classList.remove("thinking");
+    renderInto(aiBubble, result, true);
+    aiWrapper._raw = result;
+    if (incomplete) {
+      const note = document.createElement("div");
+      note.className = "err-note";
+      note.textContent = "⚠️ The connection dropped, so this reply may be incomplete.";
+      aiWrapper.appendChild(note);
+      aiWrapper.appendChild(makeRetry(false));
+      aiWrapper.classList.add("partial");
+    } else {
+      aiWrapper.appendChild(makeActions());
+      conversationHistory.push({ role: "assistant", content: result });
+      updateCurrentSessionState();
+    }
+  } catch (error) {
+    console.error(error);
+    finished = true;
+    aiBubble.classList.remove("thinking");
+    aiWrapper.className = "msg-wrapper ai error";
+    aiBubble.textContent = error.message;
+    aiWrapper.appendChild(makeRetry(true));
+  } finally {
+    isBusy = false; box.disabled = false; btn.disabled = false;
+    box.focus();
+    chat.scrollTop = chat.scrollHeight;
+  }
+}
+
+function makeRetry(withSettings) {
+  const row = document.createElement("div");
+  row.className = "action-buttons";
+  const r = document.createElement("button");
+  r.type = "button"; r.className = "retry-btn err-btn"; r.textContent = "🔄 Retry";
+  row.appendChild(r);
+  if (withSettings) {
+    const s = document.createElement("button");
+    s.type = "button"; s.className = "settings-link-btn err-btn"; s.textContent = "⚙ Settings";
+    row.appendChild(s);
+  }
+  return row;
+}
+
+chat.addEventListener("click", e => {
+  const retry = e.target.closest(".retry-btn");
+  const sett = e.target.closest(".settings-link-btn");
+  if (sett) { openSettings(); return; }
+  if (!retry || isBusy) return;
+  const w = retry.closest(".msg-wrapper");
+  if (w !== chat.lastElementChild) { w.remove(); return; }
+  w.remove();
+  generateReply(lastImages);
+});
 
 async function send() {
-    let text = box.value.trim();
-    // Allow sending if there is either text or an attached file
-    if (!text && !attachedFileContent) return;
-    if (btn.disabled) return;
+  if (isBusy) return;
+  const typed = box.value.trim();
+  if (!typed && !attachments.length) return;
 
-    // Combine the file context with the user query if a file is attached
-    if (attachedFileContent) {
-        text = text ? `${attachedFileContent}\n\nUser Question: ${text}` : attachedFileContent;
-    }
+  const files = attachments.map(a => a.name);
+  const images = attachments.flatMap(a => a.images);
+  const display = typed || "Analyze the attached file(s).";
+  let content = typed;
+  if (attachments.length) {
+    const fileText = attachments.map(a => a.text).join("\n\n=====\n\n");
+    content = fileText + USER_Q_TAG + (typed || "Please analyze the attached file(s).");
+  }
 
-    box.disabled = true;
-    btn.disabled = true;
-    if (isListening) recognition.stop();
+  isBusy = true; box.disabled = true; btn.disabled = true;
+  if (isListening && recognition) recognition.stop();
+  chat.querySelectorAll(".msg-wrapper.error, .msg-wrapper.partial").forEach(n => n.remove());
 
-    // User message DOM element
-    const userWrapper = document.createElement("div");
-    userWrapper.className = "msg-wrapper user";
-    const userBubble = document.createElement("div");
-    userBubble.className = "msg";
-    // Display the original typed text, or a placeholder if they only sent a file
-    userBubble.textContent = box.value.trim() || "Analyze file contents.";
-    userWrapper.appendChild(userBubble);
-    chat.appendChild(userWrapper);
-    
-    box.value = "";
-    chat.scrollTop = chat.scrollHeight;
-    
-    // Push the compiled payload (file content + question) to the history
-    conversationHistory.push({ role: "user", content: text });
-      updateCurrentSessionState(); // <-- ADD THIS LINE HERE
+  appendUserMessage(display, files);
+  conversationHistory.push({ role: "user", content, display, files });
+  updateCurrentSessionState(typed || files[0] || "File chat");
+  box.value = ""; attachments = []; renderAttachBar(); box.placeholder = "Type a message...";
+  lastImages = images;
+  chat.scrollTop = chat.scrollHeight;
 
-    // Reset file tracker state for the next turn
-    attachedFileContent = "";
-    const fileInputEl = document.getElementById('fileInput');
-    if (fileInputEl) fileInputEl.value = ""; 
-    box.placeholder = "Type a message...";
-
-    // AI message container setups
-    const aiWrapper = document.createElement("div");
-    aiWrapper.className = "msg-wrapper ai";
-    const aiBubble = document.createElement("div");
-    aiBubble.className = "msg thinking";
-    aiBubble.textContent = "...";    
-    aiWrapper.appendChild(aiBubble);
-    chat.appendChild(aiWrapper);
-    chat.scrollTop = chat.scrollHeight;
-
-
-
-
-
-
-
-
-          
-    // List of models to try sequentially if one fails or gets rate-limited (429)
-    const modelsToTry = [
-      "openai",     // GPT-4o
-      "qwen",       // Qwen 2.5 72B
-      "mistral",    // Mistral Nemo
-      "llama",      // Llama 3.1 70B
-      "searchgpt",  // GPT-4o with real-time web search capabilities
-      "qwen-coder", // Qwen 2.5 Coder 32B (Great for code tasks)
-      "deepseek",   // DeepSeek V3
-      "nemotron",   // Llama 3.1 Nemotron 70B
-      "unity",      // Custom Unity engine model
-      "midijourney",// Stylized text model
-      "rtist",      // Art/Creative targeted model
-      "hyperspace", // Fast reasoning model
-      "karma",      // Alternative open-source layer
-      "claude",     // Claude hybrid layer
-      "p1",         // Experimental speed-optimized model
-      "llamalight"  // Lightweight, ultra-fast Llama model variant
-    ];
-    let response = null;
-    let selectedModel = "";
-
-          
-
-    // Loop through the models until a connection succeeds
-    for (const model of modelsToTry) {
-        try {
-            console.log(`Attempting connection with model: ${model}`);
-            const res = await fetch("https://text.pollinations.ai/v1/chat/completions", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    model: model,
-                    messages: conversationHistory,
-                    stream: true
-                })
-            });
-
-            if (res.ok) {
-                response = res;
-                selectedModel = model;
-                break; 
-            } else {
-                console.warn(`Model ${model} failed with status: ${res.status}`);
-            }
-        } catch (err) {
-            console.error(`Network error attempting model ${model}:`, err);
-        }
-    }
-
-    try {
-        if (!response) {
-            throw new Error("All available AI engine endpoints are currently rate-limited or busy. Please wait a minute.");
-        }
-
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder("utf-8");
-        let completeText = "";
-        let buffer = "";
-
-        while (true) {
-            const { value, done } = await reader.read();
-            if (done) break;
-            buffer += decoder.decode(value, { stream: true });
-            const lines = buffer.split("\n");
-            buffer = lines.pop();
-
-            for (const line of lines) {
-                const cleanedLine = line.trim();
-                if (!cleanedLine || cleanedLine === "data: [DONE]") continue;
-                if (cleanedLine.startsWith("data: ")) {
-                    try {
-                        const parsed = JSON.parse(cleanedLine.replace(/^data:\s*/, ""));
-                        const contentChunk = parsed.choices?.[0]?.delta?.content || "";
-                        if (contentChunk) {
-                            if (aiBubble.classList.contains("thinking")) {
-                                aiBubble.classList.remove("thinking");
-                                aiBubble.textContent = "";
-                            }
-                            completeText += contentChunk;
-                            if (typeof marked !== 'undefined') {
-                                aiBubble.innerHTML = marked.parse(completeText);
-                            } else {
-                                aiBubble.textContent = completeText;
-                            }
-                            chat.scrollTop = chat.scrollHeight;
-                        }
-                    } catch (e) {
-                        console.warn("Failed to parse line chunk:", cleanedLine, e);
-                    }
-                }
-            }
-        }
-
-        // Action Buttons Setup
-        const actionPanel = document.createElement("div");
-        actionPanel.className = "action-buttons";
-
-        const speakBtn = document.createElement("button");
-        speakBtn.className = "speak-msg-btn";
-        speakBtn.innerHTML = "🔊";
-        speakBtn.onclick = function() {
-            speakText(aiBubble.innerText);
-        };
-
-        const copyBtn = document.createElement("button");
-        copyBtn.className = "copy-btn";
-        copyBtn.innerHTML = `<svg xmlns="http://w3.org" width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M9 18a2 2 0 0 1-1.425-.575A2 2 0 0 1 7 16V4q0-.825.575-1.4Q8.175 2 9 2h9q.825 0 1.4.6.6.575.6 1.4v12q0 .825-.6 1.425Q18.825 18 18 18zm0-2h9V4H9zm-4 6a2 2 0 0 1-1.425-.575A2 2 0 0 1 3 20V6h2v14h11v2zm4-6V4z"/></svg> `;
-        copyBtn.onclick = function() {
-            copyText(aiBubble.innerText, copyBtn);
-        };
-
-        actionPanel.appendChild(speakBtn);
-        actionPanel.appendChild(copyBtn);
-        aiWrapper.appendChild(actionPanel);
-        
-        conversationHistory.push({ role: "assistant", content: completeText });
-
-
-
-          updateCurrentSessionState(); // <-- ADD THIS LINE HERE
-
-    } catch (error) {
-        console.error(error);
-        aiBubble.classList.remove("thinking");
-        aiWrapper.className = "msg-wrapper ai error";
-        aiBubble.textContent = `Error: ${error.message}`;
-    } finally {
-        box.disabled = false;
-        btn.disabled = false;
-        box.focus();
-        chat.scrollTop = chat.scrollHeight;
-    }
+  await generateReply(images);
 }
 
-</script>
+// ---------- Wiring ----------
+box.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); send(); } });
+if (typeof pdfjsLib !== "undefined") pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js";
+document.getElementById("settingsBtn").addEventListener("click", openSettings);
+initializeEngine();
+loadMediaModels();
+loadTextModels();
+box.focus();
 
-
-
-
-
-
-
-
-           
-      
-      <script>
-document.getElementById('saveFileBtn').addEventListener('click', () => {
-    // 1. Clone the document body and clear the messages container so the saved file is fresh
-    const parser = new DOMParser();
-    const docClone = parser.parseFromString(document.documentElement.outerHTML, 'text/html');
-    const messagesContainer = docClone.getElementById('messages');
-
-    if (messagesContainer) {
-        // Keeps the very first greeting and applies the corrected SVG paths + actions
-        messagesContainer.innerHTML = `
-            <div class="msg-wrapper ai">
-                <div class="msg">Hello! Ask me anything. I am powered by a live, open-infrastructure cloud engine.</div>
-                <div class="action-buttons">
-                    <button class="speak-msg-btn" onclick="speakText(this.closest('.msg-wrapper').querySelector('.msg').innerText)">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <g transform="translate(12, 12) scale(0.2, 0.2) translate(-12, -12)">
-                                <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor" fill-opacity="0.1"/>
-                                <path d="M15.54 8.46a5 5 0 0 1 0 7.07" fill="currentColor"/>
-                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14" fill="currentColor"/>
-                            </g>
-                        </svg>
-                    </button>
-                    <button class="copy-btn" onclick="copyText(this.closest('.msg-wrapper').querySelector('.msg').innerText, this)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M9 18a2 2 0 0 1-1.425-.575A2 2 0 0 1 7 16V4q0-.825.575-1.4Q8.175 2 9 2h9q.825 0 1.4.6.6.575.6 1.4v12q0 .825-.6 1.425Q18.825 18 18 18zm0-2h9V4H9zm-4 6a2 2 0 0 1-1.425-.575A2 2 0 0 1 3 20V6h2v14h11v2zm4-6V4z"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>`;
-    }
-    const pageHtmlContent = docClone.documentElement.outerHTML;
-
-    try {
-        // 2. Create a memory blob containing the HTML text
-        const blob = new Blob([pageHtmlContent], { type: 'text/html' });
-        
-        // 3. Create a temporary invisible anchor link
-        const downloadLink = document.createElement('a');
-        downloadLink.href = URL.createObjectURL(blob);
-        downloadLink.download = 'PALRHEA-AI.html';
-        
-        // 4. Append, click, and instantly remove it to trigger the download
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-        
-        // 5. Clean up the memory reference
-        URL.revokeObjectURL(downloadLink.href);
-    } catch (err) {
-        console.error('Save operation encountered an error:', err);
-        alert('Could not save file automatically.');
-    }
+// ---------- Save a clean copy of this page ----------
+document.getElementById("saveFileBtn").addEventListener("click", () => {
+  const doc = new DOMParser().parseFromString("<!DOCTYPE html>" + document.documentElement.outerHTML, "text/html");
+  const q = id => doc.getElementById(id);
+  q("messages").innerHTML = "";
+  q("sessionList").innerHTML = "";
+  q("attachBar").innerHTML = ""; q("attachBar").removeAttribute("style");
+  q("mediaModelSelect").innerHTML = '<option value="flux">🎨 flux</option><option value="turbo">🎨 turbo</option>';
+  q("sidebar").classList.remove("open"); q("sidebarOverlay").classList.remove("open");
+  q("intro").removeAttribute("style");
+  q("intro").setAttribute("style", "font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #2d3748; background-color: #f7fafc; padding: calc(40px + 6vw) 5% 5% 5%; box-sizing: border-box; width: 100%; min-height: 100vh;");
+  q("ai-page").className = ""; q("ai-page").removeAttribute("style");
+  ["userInput", "sendBtn"].forEach(id => q(id).removeAttribute("disabled"));
+  q("userInput").setAttribute("placeholder", "Type a message...");
+  q("userInput").removeAttribute("value");
+  q("mic-btn").className = ""; q("mic-btn").removeAttribute("style");
+  try {
+    const blob = new Blob(["<!DOCTYPE html>\n" + doc.documentElement.outerHTML], { type: "text/html" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "PALRHEA-AI.html";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  } catch (err) { alert("Could not save the file automatically."); }
 });
-</script>
 
+</script>
 
 </body>
 </html>
